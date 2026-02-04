@@ -1,5 +1,15 @@
 ---
 import Layout from '../layouts/Layout.astro';
+import SectionTitle from '../layouts/SectionTitle.astro';
+
+import { execSync } from 'node:child_process';
+
+let lastUpdated = new Date().toISOString().slice(0, 10);
+try {
+  lastUpdated = execSync('git log -1 --format=%cs', { encoding: 'utf8' }).trim();
+} catch {
+  // Fallback is build date; keep the page working even if git isn't available.
+}
 
 const profile = {
   name: 'Harrison Chojnowski',
@@ -13,7 +23,6 @@ const employment = [
   {
     role: 'Researcher',
     org: 'MIRTH AI Lab',
-    badge: 'MA',
     period: '2024 - Present',
     location: 'Gainesville, FL',
     highlights: [
@@ -25,7 +34,6 @@ const employment = [
   {
     role: 'Paid OPS Researcher',
     org: 'University of Florida',
-    badge: 'UF',
     period: '2025 - Present',
     location: 'Gainesville, FL',
     highlights: [
@@ -39,7 +47,6 @@ const education = [
   {
     degree: 'B.S. Computer Science, B.S. Mathematics',
     school: 'University of Florida',
-    badge: 'UF',
     period: 'Aug 2024 - May 2027',
     gpa: '3.95 / 4.00',
     details: [
@@ -55,32 +62,27 @@ const projects = [
     name: 'PixArt/SD3 from Scratch (Full Pipeline)',
     stack: 'PyTorch, vLLM',
     detail: 'Implemented full 5-stage training pipeline and full model stack end-to-end.',
-    badge: 'PT',
     href: 'https://github.com/hachoj/Pixart-Alpha-From-Scratch'
   },
   {
     name: 'Geometry-Aware-MicroUS-INR',
     stack: 'Python',
-    badge: 'US',
     href: 'https://github.com/mirthAI/GeometryAware-MicroUS-INR'
   },
   {
     name: 'GRPO-From-Scratch',
     stack: 'Python',
-    badge: 'RL',
     href: 'https://github.com/hachoj/GRPO-From-Scratch'
   },
   {
     name: 'PixArt Stage-1 POC (JAX Stack)',
     stack: 'Flax, Optax, Equinox, Grain',
     detail: 'Proof-of-concept implementation for stage 1 to demonstrate JAX ecosystem proficiency.',
-    badge: 'JX',
     href: 'https://github.com/hachoj/PixelArt-Alpha-Equinox-Grain'
   },
   {
     name: 'Triton',
     stack: 'Python',
-    badge: 'TR',
     href: 'https://github.com/hachoj/Triton'
   }
 ];
@@ -101,31 +103,58 @@ const publications = [
 
 <Layout title={`${profile.name} | Portfolio`}>
   <main class="page">
-    <header class="profile">
-      <h1>{profile.name}</h1>
-      <p class="contact">
-        <a href={`mailto:${profile.email}`}>{profile.email}</a>
-        <span aria-hidden="true">|</span>
-        <span>{profile.phone}</span>
-        <span aria-hidden="true">|</span>
-        <a href={profile.github} target="_blank" rel="noreferrer">github.com/hachoj</a>
-      </p>
-      <p class="location">{profile.location}</p>
+    <nav class="topnav" aria-label="Primary">
+      <a href="#about">About</a>
+      <a href="#work">Work</a>
+      <a href="#education">Education</a>
+      <a href="#projects">Projects</a>
+      <a href="#papers">Papers</a>
+      <a href="#skills">Skills</a>
+      <a href="#contact">Contact</a>
+      <span class="nav-todo">Resume (TODO)</span>
+    </nav>
+
+    <header class="hero">
+      <div class="hero-grid">
+        <div class="avatar" aria-hidden="true">
+          <span>HC</span>
+        </div>
+        <div class="hero-copy">
+          <h1>{profile.name}</h1>
+          <p class="hero-sub">
+            B.S. Computer Science &amp; Mathematics, University of Florida (2024–2027)
+          </p>
+          <p class="hero-sub">
+            Researcher @ MIRTH AI Lab (2024–Present); OPS Researcher @ University of Florida (2025–Present)
+          </p>
+
+          <div class="hero-links">
+            <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
+            <a href={`mailto:${profile.email}`}>Email</a>
+            <span>{profile.phone}</span>
+            <span class="dot" aria-hidden="true">•</span>
+            <span>{profile.location}</span>
+          </div>
+
+          <p class="last-updated">Last updated: {lastUpdated}</p>
+        </div>
+      </div>
+      <!-- TODO: Replace avatar placeholder with /public/avatar.jpg. -->
     </header>
 
-    <section class="section section-bio">
-      <h2>Bio</h2>
-      <p class="todo">TODO: Add a 2-3 sentence bio in your own words.</p>
+    <section id="about" class="section section-bio">
+      <SectionTitle title="About" icon="about" />
+      <p class="todo">TODO: Add a short bio in your own words (2-3 sentences).</p>
     </section>
 
-    <section class="section section-employment">
-      <h2>Employment</h2>
+    <section id="work" class="section section-employment">
+      <SectionTitle title="Work" icon="work" />
+      <p class="note">Focus areas: diffusion/flow matching, implicit neural representations (INRs), and clinical report alignment.</p>
       <div class="timeline">
         {employment.map((job) => (
           <article class="entry">
             <div class="entry-head">
               <h3>
-                <span class="badge" aria-hidden="true">{job.badge}</span>
                 {job.role}, <span class="org">{job.org}</span>
               </h3>
               <p>{job.period}</p>
@@ -139,14 +168,13 @@ const publications = [
       </div>
     </section>
 
-    <section class="section section-education">
-      <h2>Education</h2>
+    <section id="education" class="section section-education">
+      <SectionTitle title="Education" icon="edu" />
       <div class="timeline">
         {education.map((item) => (
           <article class="entry">
             <div class="entry-head">
               <h3>
-                <span class="badge" aria-hidden="true">{item.badge}</span>
                 {item.degree}, <span class="org">{item.school}</span>
               </h3>
               <p>{item.period}</p>
@@ -158,8 +186,8 @@ const publications = [
       </div>
     </section>
 
-    <section class="section section-projects">
-      <h2>Selected Projects</h2>
+    <section id="projects" class="section section-projects">
+      <SectionTitle title="Projects" icon="projects" />
       <p class="note">
         Full PixArt implementation and a separate JAX stack proof-of-concept are both listed intentionally.
       </p>
@@ -167,7 +195,6 @@ const publications = [
         {projects.map((project) => (
           <article class="row">
             <h3>
-              <span class="badge badge-project" aria-hidden="true">{project.badge}</span>
               <a href={project.href} target="_blank" rel="noreferrer">{project.name}</a>
             </h3>
             <p class="entry-meta">{project.stack}</p>
@@ -177,8 +204,8 @@ const publications = [
       </div>
     </section>
 
-    <section class="section section-publications">
-      <h2>Publications</h2>
+    <section id="papers" class="section section-publications">
+      <SectionTitle title="Papers" icon="papers" />
       <div class="list">
         {publications.map((paper) => (
           <article class="row">
@@ -192,14 +219,22 @@ const publications = [
       </div>
     </section>
 
-    <section class="section section-skills">
-      <h2>Skills</h2>
+    <section id="skills" class="section section-skills">
+      <SectionTitle title="Skills" icon="skills" />
       <p class="inline-list">
         Machine learning tools: PyTorch · JAX (Flax/Equinox) · Orbax · Grain · Triton · NVIDIA DALI · DDP/FSDP · Weights & Biases · Git · Linux/Unix · Python · C++
       </p>
       <p class="inline-list">
         Mathematical foundations: information theory · measure-theoretic probability · optimal transport · optimization on manifolds
       </p>
+    </section>
+
+    <section id="contact" class="section section-contact">
+      <SectionTitle title="Contact" icon="contact" />
+      <p class="inline-list">
+        Email: <a href={`mailto:${profile.email}`}>{profile.email}</a> · GitHub: <a href={profile.github} target="_blank" rel="noreferrer">hachoj</a>
+      </p>
+      <p class="note">TODO: Add LinkedIn, Google Scholar, and/or a resume PDF link if desired.</p>
     </section>
   </main>
 </Layout>

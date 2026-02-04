@@ -1,11 +1,12 @@
 @import url('https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,600;8..60,700&family=Source+Sans+3:wght@400;500;600&display=swap');
 
 :root {
-  --bg: #f1f1f1;
-  --text: #222426;
-  --muted: #5c6066;
-  --line: #cfcfcf;
-  --accent: #0b56c3;
+  --bg: #f5f6fb;
+  --text: #1f2328;
+  --muted: #576072;
+  --line: #d3d9e6;
+  --accent: #1452cc;
+  --surface: #ffffff;
 }
 
 * {
@@ -31,6 +32,10 @@ h3 {
 .page {
   width: min(880px, calc(100vw - 2rem));
   margin: 2rem auto 3.5rem;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  padding: 1.1rem 1.1rem 0.8rem;
 }
 
 h1 {
@@ -39,7 +44,7 @@ h1 {
 }
 
 .profile {
-  padding: 0.7rem 0 1.2rem;
+  padding: 0.9rem 0.6rem 1.3rem;
   border-bottom: 1px solid var(--line);
 }
 
@@ -74,7 +79,43 @@ h2 {
 
 .section {
   border-top: 1px solid var(--line);
-  padding: 1.4rem 0 0.9rem;
+  padding: 1.25rem 0.7rem 0.95rem;
+  position: relative;
+}
+
+.section::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 1.65rem;
+  width: 4px;
+  height: calc(100% - 2.35rem);
+  border-radius: 4px;
+  background: #dce7ff;
+}
+
+.section-bio::before {
+  background: #d7e6ff;
+}
+
+.section-employment::before {
+  background: #c9ecdf;
+}
+
+.section-education::before {
+  background: #ffe3bd;
+}
+
+.section-projects::before {
+  background: #ffd7dd;
+}
+
+.section-publications::before {
+  background: #dccfff;
+}
+
+.section-skills::before {
+  background: #ccecf2;
 }
 
 .section p {
@@ -127,13 +168,36 @@ li {
 .entry-head h3 {
   font-size: 1.52rem;
   font-weight: 600;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.entry-head h3 span {
+.entry-head h3 .org {
   font-family: 'Source Sans 3', sans-serif;
   font-size: 1.05rem;
   font-weight: 500;
   color: var(--muted);
+}
+
+.badge {
+  display: inline-flex;
+  width: 1.65rem;
+  height: 1.65rem;
+  border-radius: 999px;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Source Sans 3', sans-serif;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.03em;
+  color: #123a8e;
+  background: #d7e6ff;
+  border: 1px solid #bcd1fb;
+}
+
+.badge-project {
+  margin-right: 0.35rem;
 }
 
 .entry-head p,
@@ -158,6 +222,8 @@ a {
   .page {
     width: min(880px, calc(100vw - 1.2rem));
     margin: 1.2rem auto 2rem;
+    border-radius: 12px;
+    padding: 0.5rem 0.6rem 0.4rem;
   }
 
   .entry-head {
@@ -172,5 +238,9 @@ a {
 
   h2 {
     font-size: 1.7rem;
+  }
+
+  .section {
+    padding: 1.1rem 0.2rem 0.8rem 0.5rem;
   }
 }

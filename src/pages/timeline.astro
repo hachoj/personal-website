@@ -1,0 +1,52 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionTitle from '../layouts/SectionTitle.astro';
+import { profile, employment, education } from '../data';
+import { getLastUpdated } from '../lastUpdated';
+
+const lastUpdated = getLastUpdated();
+---
+
+<Layout title={`${profile.name} | Timeline`}>
+  <main class="page">
+    <header class="page-hero">
+      <h1>Timeline</h1>
+      <p class="note">Last updated: {lastUpdated}</p>
+    </header>
+
+    <section class="section section-employment">
+      <SectionTitle title="Work" icon="work" />
+      <div class="timeline">
+        {employment.map((job) => (
+          <article class="entry">
+            <div class="entry-head">
+              <h3>{job.role}, <span class="org">{job.org}</span></h3>
+              <p>{job.period}</p>
+            </div>
+            <p class="entry-meta">{job.location}</p>
+            <ul>
+              {job.highlights.map((item) => <li>{item}</li>)}
+            </ul>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="section section-education">
+      <SectionTitle title="Education" icon="edu" />
+      <div class="timeline">
+        {education.map((e) => (
+          <article class="entry">
+            <div class="entry-head">
+              <h3>{e.degree}, <span class="org">{e.school}</span></h3>
+              <p>{e.period}</p>
+            </div>
+            <p class="entry-meta">GPA {e.gpa}</p>
+            <p class="inline-list">Relevant coursework: {e.details.join(' · ')}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+</Layout>
+

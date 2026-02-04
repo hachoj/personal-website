@@ -1,0 +1,36 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionTitle from '../layouts/SectionTitle.astro';
+import { profile, areas, highlights } from '../data';
+import { getLastUpdated } from '../lastUpdated';
+
+const lastUpdated = getLastUpdated();
+---
+
+<Layout title={`${profile.name} | About`}>
+  <main class="page page-narrow">
+    <header class="page-hero">
+      <h1>About</h1>
+      <p class="note">Last updated: {lastUpdated}</p>
+    </header>
+
+    <section class="section section-bio">
+      <SectionTitle title="Bio" icon="about" />
+      <p class="todo">TODO: Write a short bio (2-5 sentences) in your own words.</p>
+    </section>
+
+    <section class="section section-skills">
+      <SectionTitle title="Areas" icon="skills" />
+      <p class="inline-list">{areas.join(' · ')}</p>
+      <p class="note">Sourced from resume; keep this factual.</p>
+    </section>
+
+    <section class="section section-timeline">
+      <SectionTitle title="Quick Facts" icon="work" />
+      <ul>
+        {highlights.map((h) => <li>{h}</li>)}
+      </ul>
+    </section>
+  </main>
+</Layout>
+

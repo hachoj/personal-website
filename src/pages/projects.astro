@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionTitle from '../layouts/SectionTitle.astro';
+import { profile, projects } from '../data';
+import { getLastUpdated } from '../lastUpdated';
+
+const lastUpdated = getLastUpdated();
+---
+
+<Layout title={`${profile.name} | Projects`}>
+  <main class="page">
+    <header class="page-hero">
+      <h1>Projects</h1>
+      <p class="note">Last updated: {lastUpdated}</p>
+      <p class="note">TODO: Add 1-2 featured screenshots/GIFs per project (optional).</p>
+    </header>
+
+    <section class="section section-projects">
+      <SectionTitle title="All Projects" icon="projects" />
+      <div class="project-list">
+        {projects.map((p) => (
+          <article class="project">
+            <div class="project-head">
+              <h3><a href={p.href} target="_blank" rel="noreferrer">{p.name}</a></h3>
+              <p class="entry-meta">{p.stack}</p>
+            </div>
+            <p>{p.detail}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+</Layout>
+

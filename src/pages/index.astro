@@ -2,118 +2,26 @@
 import Layout from '../layouts/Layout.astro';
 import SectionTitle from '../layouts/SectionTitle.astro';
 
-import { execSync } from 'node:child_process';
+import {
+  profile,
+  highlights,
+  areas,
+  updates,
+  projects,
+  publications,
+  employment,
+  education
+} from '../data';
 
-let lastUpdated = new Date().toISOString().slice(0, 10);
-try {
-  lastUpdated = execSync('git log -1 --format=%cs', { encoding: 'utf8' }).trim();
-} catch {
-  // Fallback is build date; keep the page working even if git isn't available.
-}
+import { getLastUpdated } from '../lastUpdated';
 
-const profile = {
-  name: 'Harrison Chojnowski',
-  email: 'chojnowski.h@ufl.edu',
-  phone: '(702) 355-5729',
-  location: 'Gainesville, FL',
-  github: 'https://github.com/hachoj'
-};
-
-const employment = [
-  {
-    role: 'Researcher',
-    org: 'MIRTH AI Lab',
-    period: '2024 - Present',
-    location: 'Gainesville, FL',
-    highlights: [
-      'Trained diffusion and flow-matching generative models for high-fidelity medical image synthesis.',
-      'Developed implicit neural representations (INRs) for resolution-independent volumetric analysis.',
-      'Implemented GRPO pipelines to align model reasoning with expert clinical reports.'
-    ]
-  },
-  {
-    role: 'Paid OPS Researcher',
-    org: 'University of Florida',
-    period: '2025 - Present',
-    location: 'Gainesville, FL',
-    highlights: [
-      'Built feature extraction pipelines across medical imaging modalities including ultrasound.',
-      'Trained semantic embeddings from clinical reports using LLMs for image-text alignment.'
-    ]
-  }
-];
-
-const education = [
-  {
-    degree: 'B.S. Computer Science, B.S. Mathematics',
-    school: 'University of Florida',
-    period: 'Aug 2024 - May 2027',
-    gpa: '3.95 / 4.00',
-    details: [
-      'Deep Learning in Medical Image Analysis',
-      'Linear Algebra for Data Science',
-      'Real Analysis with Advanced Calculus I and II'
-    ]
-  }
-];
-
-const projects = [
-  {
-    name: 'PixArt/SD3 from Scratch (Full Pipeline)',
-    stack: 'PyTorch, vLLM',
-    detail: 'Implemented full 5-stage training pipeline and full model stack end-to-end.',
-    href: 'https://github.com/hachoj/Pixart-Alpha-From-Scratch'
-  },
-  {
-    name: 'Geometry-Aware-MicroUS-INR',
-    stack: 'Python',
-    href: 'https://github.com/mirthAI/GeometryAware-MicroUS-INR'
-  },
-  {
-    name: 'GRPO-From-Scratch',
-    stack: 'Python',
-    href: 'https://github.com/hachoj/GRPO-From-Scratch'
-  },
-  {
-    name: 'PixArt Stage-1 POC (JAX Stack)',
-    stack: 'Flax, Optax, Equinox, Grain',
-    detail: 'Proof-of-concept implementation for stage 1 to demonstrate JAX ecosystem proficiency.',
-    href: 'https://github.com/hachoj/PixelArt-Alpha-Equinox-Grain'
-  },
-  {
-    name: 'Triton',
-    stack: 'Python',
-    href: 'https://github.com/hachoj/Triton'
-  }
-];
-
-const publications = [
-  {
-    title: 'Geometry-Aware Implicit Neural Reconstruction of Oblique Micro-Ultrasound Scans',
-    venue: 'In review at MIDL',
-    year: '2026'
-  },
-  {
-    title: 'AortaGPT: An Interactive Vision-Language System for Aortic CT Analysis',
-    venue: 'In review at CVPR',
-    year: '2026'
-  }
-];
+const lastUpdated = getLastUpdated();
+const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
+const featuredPapers = publications.slice(0, 2);
 ---
 
-<Layout title={`${profile.name} | Portfolio`}>
+<Layout title={`${profile.name} | Home`}>
   <main class="page">
-    <nav class="topnav" aria-label="Primary">
-      <a href="#about">About</a>
-      <a href="#work">Work</a>
-      <a href="#education">Education</a>
-      <a href="#projects">Projects</a>
-      <a href="#papers">Papers</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
-      <span class="nav-todo">Resume (TODO)</span>
-    </nav>
-
     <header class="hero">
       <div class="hero-grid">
         <div class="avatar" aria-hidden="true">
@@ -121,120 +29,104 @@ const publications = [
         </div>
         <div class="hero-copy">
           <h1>{profile.name}</h1>
-          <p class="hero-sub">
-            B.S. Computer Science &amp; Mathematics, University of Florida (2024–2027)
-          </p>
-          <p class="hero-sub">
-            Researcher @ MIRTH AI Lab (2024–Present); OPS Researcher @ University of Florida (2025–Present)
-          </p>
+          <p class="hero-sub">{highlights[0]}</p>
+          <p class="hero-sub">{highlights[1]}; {highlights[2]}</p>
 
           <div class="hero-links">
             <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
             <a href={`mailto:${profile.email}`}>Email</a>
-            <span>{profile.phone}</span>
-            <span class="dot" aria-hidden="true">•</span>
             <span>{profile.location}</span>
           </div>
 
           <p class="last-updated">Last updated: {lastUpdated}</p>
+
+          <div class="cta-row">
+            <a class="cta" href="/projects">Explore projects</a>
+            <a class="cta ghost" href="/papers">Read papers</a>
+            <a class="cta ghost" href="/timeline">View timeline</a>
+          </div>
         </div>
       </div>
-      <!-- TODO: Replace avatar placeholder with /public/avatar.jpg. -->
+      <p class="avatar-todo">TODO: Add `public/avatar.jpg` to replace initials.</p>
     </header>
 
-    <section id="about" class="section section-bio">
+    <section class="section section-bio">
       <SectionTitle title="About" icon="about" />
-      <p class="todo">TODO: Add a short bio in your own words (2-3 sentences).</p>
+      <p class="todo">TODO: Add 2-3 sentences in your own words.</p>
+      <p class="inline-list">Areas: {areas.join(' · ')}</p>
+      <p class="note"><a href="/about">More →</a></p>
     </section>
 
-    <section id="work" class="section section-employment">
-      <SectionTitle title="Work" icon="work" />
-      <p class="note">Focus areas: diffusion/flow matching, implicit neural representations (INRs), and clinical report alignment.</p>
-      <div class="timeline">
-        {employment.map((job) => (
-          <article class="entry">
-            <div class="entry-head">
-              <h3>
-                {job.role}, <span class="org">{job.org}</span>
-              </h3>
-              <p>{job.period}</p>
-            </div>
-            <p class="entry-meta">{job.location}</p>
-            <ul>
-              {job.highlights.map((item) => <li>{item}</li>)}
-            </ul>
+    <section class="section section-whatsnew">
+      <SectionTitle title="What's New" icon="papers" />
+      <p class="note">A short changelog so the site reads as maintained (edit in `src/data.ts`).</p>
+      <ul class="updates">
+        {updates.map((u) => <li>{u}</li>)}
+      </ul>
+    </section>
+
+    <section class="section section-projects">
+      <SectionTitle title="Featured Projects" icon="projects" />
+      <div class="cards">
+        {featuredProjects.map((p) => (
+          <article class="card">
+            <h3><a href={p.href} target="_blank" rel="noreferrer">{p.name}</a></h3>
+            <p class="entry-meta">{p.stack}</p>
+            <p>{p.detail}</p>
           </article>
         ))}
       </div>
+      <p class="note"><a href="/projects">View all projects →</a></p>
     </section>
 
-    <section id="education" class="section section-education">
-      <SectionTitle title="Education" icon="edu" />
-      <div class="timeline">
-        {education.map((item) => (
-          <article class="entry">
-            <div class="entry-head">
-              <h3>
-                {item.degree}, <span class="org">{item.school}</span>
-              </h3>
-              <p>{item.period}</p>
-            </div>
-            <p class="entry-meta">GPA {item.gpa}</p>
-            <p class="inline-list">Relevant coursework: {item.details.join(' · ')}</p>
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section id="projects" class="section section-projects">
-      <SectionTitle title="Projects" icon="projects" />
-      <p class="note">
-        Full PixArt implementation and a separate JAX stack proof-of-concept are both listed intentionally.
-      </p>
+    <section class="section section-publications">
+      <SectionTitle title="Selected Papers" icon="papers" />
       <div class="list">
-        {projects.map((project) => (
-          <article class="row">
-            <h3>
-              <a href={project.href} target="_blank" rel="noreferrer">{project.name}</a>
-            </h3>
-            <p class="entry-meta">{project.stack}</p>
-            {project.detail && <p>{project.detail}</p>}
-          </article>
-        ))}
-      </div>
-    </section>
-
-    <section id="papers" class="section section-publications">
-      <SectionTitle title="Papers" icon="papers" />
-      <div class="list">
-        {publications.map((paper) => (
+        {featuredPapers.map((paper) => (
           <article class="row">
             <div class="entry-head">
               <h3>{paper.title}</h3>
               <p>{paper.year}</p>
             </div>
             <p class="entry-meta">{paper.venue}</p>
+            <p class="note">TODO: add PDF / code links on `/papers`.</p>
           </article>
         ))}
       </div>
+      <p class="note"><a href="/papers">View all papers →</a></p>
     </section>
 
-    <section id="skills" class="section section-skills">
-      <SectionTitle title="Skills" icon="skills" />
-      <p class="inline-list">
-        Machine learning tools: PyTorch · JAX (Flax/Equinox) · Orbax · Grain · Triton · NVIDIA DALI · DDP/FSDP · Weights & Biases · Git · Linux/Unix · Python · C++
-      </p>
-      <p class="inline-list">
-        Mathematical foundations: information theory · measure-theoretic probability · optimal transport · optimization on manifolds
-      </p>
+    <section class="section section-timeline">
+      <SectionTitle title="Now / Recent" icon="work" />
+      <div class="timeline">
+        {employment.slice(0, 2).map((job) => (
+          <article class="entry">
+            <div class="entry-head">
+              <h3>{job.role}, <span class="org">{job.org}</span></h3>
+              <p>{job.period}</p>
+            </div>
+            <p class="entry-meta">{job.location}</p>
+          </article>
+        ))}
+        {education.slice(0, 1).map((e) => (
+          <article class="entry">
+            <div class="entry-head">
+              <h3>{e.degree}, <span class="org">{e.school}</span></h3>
+              <p>{e.period}</p>
+            </div>
+            <p class="entry-meta">GPA {e.gpa}</p>
+          </article>
+        ))}
+      </div>
+      <p class="note"><a href="/timeline">Full timeline →</a></p>
     </section>
 
-    <section id="contact" class="section section-contact">
+    <section class="section section-contact">
       <SectionTitle title="Contact" icon="contact" />
       <p class="inline-list">
         Email: <a href={`mailto:${profile.email}`}>{profile.email}</a> · GitHub: <a href={profile.github} target="_blank" rel="noreferrer">hachoj</a>
       </p>
-      <p class="note">TODO: Add LinkedIn, Google Scholar, and/or a resume PDF link if desired.</p>
+      <p class="note"><a href="/contact">More contact options →</a></p>
     </section>
   </main>
 </Layout>

@@ -1,0 +1,34 @@
+---
+import Layout from '../layouts/Layout.astro';
+import SectionTitle from '../layouts/SectionTitle.astro';
+import { profile } from '../data';
+import { getLastUpdated } from '../lastUpdated';
+
+const lastUpdated = getLastUpdated();
+---
+
+<Layout title={`${profile.name} | Contact`}>
+  <main class="page page-narrow">
+    <header class="page-hero">
+      <h1>Contact</h1>
+      <p class="note">Last updated: {lastUpdated}</p>
+    </header>
+
+    <section class="section section-contact">
+      <SectionTitle title="Email" icon="contact" />
+      <p class="inline-list">
+        <a href={`mailto:${profile.email}`}>{profile.email}</a>
+      </p>
+    </section>
+
+    <section class="section section-contact">
+      <SectionTitle title="Links" icon="projects" />
+      <p class="inline-list">
+        GitHub: <a href={profile.github} target="_blank" rel="noreferrer">hachoj</a>
+      </p>
+      <p class="note">TODO: Add LinkedIn, Google Scholar, and/or X.</p>
+      <p class="note">TODO: Add `public/resume.pdf` and link it from nav.</p>
+    </section>
+  </main>
+</Layout>
+

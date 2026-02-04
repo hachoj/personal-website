@@ -1,0 +1,78 @@
+---
+import Layout from '../layouts/Layout.astro';
+
+const projects = [
+  {
+    name: 'Pixart-Alpha-From-Scratch',
+    stack: 'Python',
+    href: 'https://github.com/'
+  },
+  {
+    name: 'GeometryAware-MicroUS-INR',
+    stack: 'Python',
+    href: 'https://github.com/mirthAI/GeometryAware-MicroUS-INR'
+  },
+  {
+    name: 'PixelArt-Alpha-Equinox-Grain',
+    stack: 'Python',
+    href: 'https://github.com/'
+  },
+  {
+    name: 'GRPO-From-Scratch',
+    stack: 'Python',
+    href: 'https://github.com/'
+  },
+  {
+    name: 'Triton',
+    stack: 'Python',
+    href: 'https://github.com/'
+  }
+];
+---
+
+<Layout title="Harrison Chojnowski | Portfolio">
+  <main class="page">
+    <section class="hero">
+      <p class="eyebrow">Portfolio</p>
+      <h1>Harrison Chojnowski</h1>
+      <p class="lead">
+        CS student focused on ML systems, applied research, and building models from scratch.
+      </p>
+      <div class="actions">
+        <a class="button primary" href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="button" href="mailto:you@example.com">Email</a>
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Resume Highlights</h2>
+      <ul>
+        <li>Replace this with your current headline achievement from your resume.</li>
+        <li>Add your strongest internship, lab, or production impact bullet.</li>
+        <li>Add one quantified result (latency reduction, accuracy gain, or scale).</li>
+      </ul>
+    </section>
+
+    <section class="panel">
+      <h2>Core Skills</h2>
+      <p class="tags">
+        Python <span aria-hidden="true">•</span> PyTorch <span aria-hidden="true">•</span> CUDA
+        <span aria-hidden="true">•</span> Triton <span aria-hidden="true">•</span> ML Engineering
+      </p>
+    </section>
+
+    <section class="panel">
+      <h2>Pinned Projects</h2>
+      <div class="grid">
+        {projects.map((project) => (
+          <article class="card">
+            <h3>
+              <a href={project.href} target="_blank" rel="noreferrer">{project.name}</a>
+            </h3>
+            <p>{project.stack}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+  </main>
+</Layout>

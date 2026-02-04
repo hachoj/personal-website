@@ -1,31 +1,84 @@
 ---
 import Layout from '../layouts/Layout.astro';
 
-const projects = [
+const employment = [
   {
-    name: 'Pixart-Alpha-From-Scratch',
-    stack: 'Python',
-    href: 'https://github.com/'
+    role: 'Researcher',
+    org: 'MIRTH AI Lab',
+    period: '2024 - Present',
+    location: 'Gainesville, FL',
+    highlights: [
+      'Trained diffusion and flow-matching generative models for high-fidelity medical image synthesis.',
+      'Developed implicit neural representations (INRs) for resolution-independent volumetric analysis.',
+      'Implemented GRPO pipelines to align model reasoning with expert clinical reports.'
+    ]
   },
   {
-    name: 'GeometryAware-MicroUS-INR',
+    role: 'Paid OPS Researcher',
+    org: 'University of Florida',
+    period: '2025 - Present',
+    location: 'Gainesville, FL',
+    highlights: [
+      'Built feature extraction pipelines across medical imaging modalities including ultrasound.',
+      'Trained semantic embeddings from clinical reports using LLMs for image-text alignment.'
+    ]
+  }
+];
+
+const education = [
+  {
+    degree: 'B.S. Computer Science, B.S. Mathematics',
+    school: 'University of Florida',
+    period: 'Aug 2024 - May 2027',
+    gpa: '3.95 / 4.00',
+    details: [
+      'Deep Learning in Medical Image Analysis',
+      'Linear Algebra for Data Science',
+      'Real Analysis with Advanced Calculus I and II'
+    ]
+  }
+];
+
+const projects = [
+  {
+    name: 'PixArt/SD3 from Scratch (Full Pipeline)',
+    stack: 'PyTorch, vLLM',
+    detail: 'Implemented full 5-stage training pipeline and full model stack end-to-end.',
+    href: 'https://github.com/hachoj/Pixart-Alpha-From-Scratch'
+  },
+  {
+    name: 'Geometry-Aware-MicroUS-INR',
     stack: 'Python',
     href: 'https://github.com/mirthAI/GeometryAware-MicroUS-INR'
   },
   {
-    name: 'PixelArt-Alpha-Equinox-Grain',
-    stack: 'Python',
-    href: 'https://github.com/'
-  },
-  {
     name: 'GRPO-From-Scratch',
     stack: 'Python',
-    href: 'https://github.com/'
+    href: 'https://github.com/hachoj/GRPO-From-Scratch'
+  },
+  {
+    name: 'PixArt Stage-1 POC (JAX Stack)',
+    stack: 'Flax, Optax, Equinox, Grain',
+    detail: 'Proof-of-concept implementation for stage 1 to demonstrate JAX ecosystem proficiency.',
+    href: 'https://github.com/hachoj/PixelArt-Alpha-Equinox-Grain'
   },
   {
     name: 'Triton',
     stack: 'Python',
-    href: 'https://github.com/'
+    href: 'https://github.com/hachoj/Triton'
+  }
+];
+
+const publications = [
+  {
+    title: 'Geometry-Aware Implicit Neural Reconstruction of Oblique Micro-Ultrasound Scans',
+    venue: 'In review at MIDL',
+    year: '2026'
+  },
+  {
+    title: 'AortaGPT: An Interactive Vision-Language System for Aortic CT Analysis',
+    venue: 'In review at CVPR',
+    year: '2026'
   }
 ];
 ---
@@ -33,36 +86,50 @@ const projects = [
 <Layout title="Harrison Chojnowski | Portfolio">
   <main class="page">
     <section class="hero">
-      <p class="eyebrow">Portfolio</p>
+      <p class="eyebrow">Machine Learning Research</p>
       <h1>Harrison Chojnowski</h1>
-      <p class="lead">
-        CS student focused on ML systems, applied research, and building models from scratch.
-      </p>
+      <p class="lead">CS + Math student building medical AI systems and training modern models from scratch.</p>
       <div class="actions">
-        <a class="button primary" href="https://github.com/" target="_blank" rel="noreferrer">GitHub</a>
-        <a class="button" href="mailto:you@example.com">Email</a>
+        <a class="button primary" href="https://github.com/hachoj" target="_blank" rel="noreferrer">GitHub</a>
+        <a class="button" href="mailto:chojnowski.h@ufl.edu">Email</a>
+      </div>
+      <p class="meta">Gainesville, FL · (702) 355-5729</p>
+    </section>
+
+    <section class="panel">
+      <h2>Employment</h2>
+      <div class="timeline">
+        {employment.map((job) => (
+          <article class="entry">
+            <div class="entry-head">
+              <h3>{job.role} · {job.org}</h3>
+              <p>{job.period}</p>
+            </div>
+            <p class="entry-location">{job.location}</p>
+            <ul>
+              {job.highlights.map((item) => <li>{item}</li>)}
+            </ul>
+          </article>
+        ))}
       </div>
     </section>
 
     <section class="panel">
-      <h2>Resume Highlights</h2>
-      <ul>
-        <li>Replace this with your current headline achievement from your resume.</li>
-        <li>Add your strongest internship, lab, or production impact bullet.</li>
-        <li>Add one quantified result (latency reduction, accuracy gain, or scale).</li>
-      </ul>
+      <h2>Education</h2>
+      {education.map((item) => (
+        <article class="entry">
+          <div class="entry-head">
+            <h3>{item.degree}</h3>
+            <p>{item.period}</p>
+          </div>
+          <p class="entry-location">{item.school} · GPA {item.gpa}</p>
+          <p class="tags">{item.details.join(' · ')}</p>
+        </article>
+      ))}
     </section>
 
     <section class="panel">
-      <h2>Core Skills</h2>
-      <p class="tags">
-        Python <span aria-hidden="true">•</span> PyTorch <span aria-hidden="true">•</span> CUDA
-        <span aria-hidden="true">•</span> Triton <span aria-hidden="true">•</span> ML Engineering
-      </p>
-    </section>
-
-    <section class="panel">
-      <h2>Pinned Projects</h2>
+      <h2>Projects</h2>
       <div class="grid">
         {projects.map((project) => (
           <article class="card">
@@ -70,9 +137,35 @@ const projects = [
               <a href={project.href} target="_blank" rel="noreferrer">{project.name}</a>
             </h3>
             <p>{project.stack}</p>
+            {project.detail && <p>{project.detail}</p>}
           </article>
         ))}
       </div>
+    </section>
+
+    <section class="panel">
+      <h2>Publications</h2>
+      <div class="timeline">
+        {publications.map((paper) => (
+          <article class="entry">
+            <div class="entry-head">
+              <h3>{paper.title}</h3>
+              <p>{paper.year}</p>
+            </div>
+            <p class="entry-location">{paper.venue}</p>
+          </article>
+        ))}
+      </div>
+    </section>
+
+    <section class="panel">
+      <h2>Skills</h2>
+      <p class="tags">
+        PyTorch · JAX (Flax/Equinox) · Orbax · Grain · Triton · NVIDIA DALI · DDP/FSDP · Weights & Biases · Git · Linux/Unix · Python · C++
+      </p>
+      <p class="tags">
+        Mathematical foundations: information theory · measure-theoretic probability · optimal transport · optimization on manifolds
+      </p>
     </section>
   </main>
 </Layout>

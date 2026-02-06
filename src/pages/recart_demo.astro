@@ -1,5 +1,6 @@
 ---
 import demo from '../recart_demo.json';
+import '../styles/site.css';
 
 function hasTechnicalDetails(result) {
   return Boolean(
@@ -11,6 +12,17 @@ function hasTechnicalDetails(result) {
       result.alpha !== undefined
   );
 }
+
+function getMetaItems(result) {
+  const items = [];
+
+  if (result.stage) items.push(`Stage: ${result.stage}`);
+  if (result.cfg !== undefined) items.push(`CFG: ${result.cfg}`);
+  if (result.steps !== undefined) items.push(`Steps: ${result.steps}`);
+  if (result.alpha !== undefined) items.push(`Alpha: ${result.alpha}`);
+
+  return items;
+}
 ---
 
 <!doctype html>
@@ -19,113 +31,93 @@ function hasTechnicalDetails(result) {
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>RecArt Demo</title>
-    <style>
-      body {
-        margin: 0;
-        padding: 20px;
-        font-family: Arial, sans-serif;
-        line-height: 1.4;
-      }
-
-      main {
-        max-width: 900px;
-      }
-
-      section {
-        margin-top: 24px;
-      }
-
-      article {
-        border: 1px solid #ccc;
-        padding: 12px;
-        margin-top: 12px;
-      }
-
-      img {
-        width: 100%;
-        max-width: 720px;
-        height: auto;
-        display: block;
-        margin: 8px 0;
-      }
-
-      pre {
-        white-space: pre-wrap;
-      }
-
-      details {
-        margin-top: 8px;
-      }
-    </style>
   </head>
-  <body>
-    <main>
-      <header>
-        <nav>
+  <body class="site-body">
+    <main class="page-shell">
+      <header class="section-band rule-top rule-bottom">
+        <div class="container">
+          <nav class="top-nav" aria-label="Primary">
           <a href="/">Home</a>
           <span> | </span>
           <a href="/recart_demo">recart_demo</a>
           <span> | </span>
           <a href="/resume_temp.pdf" target="_blank" rel="noreferrer">Resume</a>
-        </nav>
-        <h1>{demo.title}</h1>
-        <p>{demo.subtitle}</p>
+          </nav>
+          <p class="kicker">Image Generation Study</p>
+          <h1 class="display-title">{demo.title}</h1>
+          <p class="subtitle">{demo.subtitle}</p>
+        </div>
       </header>
 
-      <section>
-        <h2>About</h2>
-        <ul>
-          {demo.about.map((item) => <li>{item}</li>)}
-        </ul>
+      <section class="section-band rule-bottom">
+        <div class="container narrow">
+          <h2 class="section-title">About</h2>
+          <ul class="plain-list">
+            {demo.about.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
       </section>
 
-      <section>
-        <h2>Results</h2>
+      <section class="section-band rule-bottom" aria-label="Results">
+        <div class="container narrow">
+          <h2 class="section-title">Results</h2>
+          <p class="results-lede">Continuous gallery stream with compact technical metadata per sample.</p>
+        </div>
         {demo.results.map((result) => (
-          <article id={result.id}>
-            <h3>{result.title}</h3>
-            {result.image ? (
-              <img src={result.image} alt={result.title} loading="lazy" />
-            ) : (
-              <p>[No image path set yet]</p>
-            )}
-            <ul>
-              <li>Tags: {result.tags.join(', ')}</li>
-            </ul>
-            <p><strong>Notes</strong></p>
-            <pre>{result.notes}</pre>
-            {hasTechnicalDetails(result) && (
-              <details>
-                <summary>Technical details</summary>
-                {result.technical_details ? (
-                  <pre>{JSON.stringify(result.technical_details, null, 2)}</pre>
+          <article id={result.id} class="result-flow rule-top">
+            <div class="result-image-band">
+              <div class="container wide">
+                {result.image ? (
+                  <img class="result-image" src={result.image} alt={result.title} loading="lazy" />
                 ) : (
-                  <>
-                    {result.prompt && (
+                  <p class="empty-note">[No image path set yet]</p>
+                )}
+              </div>
+            </div>
+            <div class="result-detail-band rule-top">
+              <div class="container narrow">
+                <h3 class="result-title">{result.title}</h3>
+                {getMetaItems(result).length > 0 && (
+                  <div class="meta-row">
+                    {getMetaItems(result).map((item) => <span class="meta-item">{item}</span>)}
+                  </div>
+                )}
+                {result.tags?.length > 0 && (
+                  <div class="tag-list">
+                    {result.tags.map((tag) => <span class="pill-tag">{tag}</span>)}
+                  </div>
+                )}
+                {result.notes && <p class="result-notes">{result.notes}</p>}
+                {hasTechnicalDetails(result) && (
+                  <details class="detail-toggle">
+                    <summary>Technical Details</summary>
+                    {result.technical_details ? (
+                      <pre class="mono-block">{JSON.stringify(result.technical_details, null, 2)}</pre>
+                    ) : (
                       <>
-                        <p><strong>Prompt</strong></p>
-                        <pre>{result.prompt}</pre>
+                        {result.prompt && (
+                          <>
+                            <p class="kicker">Prompt</p>
+                            <pre class="mono-block">{result.prompt}</pre>
+                          </>
+                        )}
                       </>
                     )}
-                    <ul>
-                      <li>Stage: {result.stage}</li>
-                      <li>CFG: {result.cfg}</li>
-                      <li>Steps: {result.steps}</li>
-                      <li>Alpha: {result.alpha}</li>
-                    </ul>
-                  </>
+                  </details>
                 )}
-              </details>
-            )}
+              </div>
+            </div>
           </article>
         ))}
       </section>
 
-      <section>
-        <h2>TODO</h2>
-        <ul>
-          {demo.todo.map((item) => <li>{item}</li>)}
-        </ul>
+      <section class="section-band rule-bottom">
+        <div class="container narrow">
+          <h2 class="section-title">TODO</h2>
+          <ul class="plain-list">
+            {demo.todo.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
       </section>
     </main>
   </body>

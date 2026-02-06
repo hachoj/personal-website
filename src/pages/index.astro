@@ -42,17 +42,10 @@ import content from '../content.json';
       </section>
 
       <section>
-        <h2>Areas</h2>
+        <h2>Research Interests</h2>
         <ul>
-          {content.areas.map((item) => <li>{item}</li>)}
-        </ul>
-      </section>
-
-      <section>
-        <h2>About</h2>
-        <ul>
-          {content.about.items.map((item) => <li>{item}</li>)}
-          <li>Note: {content.about.note}</li>
+          {content.researchInterests.items.map((item) => <li>{item}</li>)}
+          <li>Note: {content.researchInterests.note}</li>
         </ul>
       </section>
 

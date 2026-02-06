@@ -13,13 +13,7 @@
     "Researcher @ MIRTH AI Lab (2024-Present)",
     "OPS Researcher @ University of Florida (2025-Present)"
   ],
-  "areas": [
-    "diffusion / flow matching",
-    "implicit neural representations (INRs)",
-    "medical imaging",
-    "image-text alignment"
-  ],
-  "about": {
+  "researchInterests": {
     "items": [
       "Research interests: self-supervised learning.",
       "Research interests: reinforcement learning.",
@@ -73,14 +67,14 @@
       "venue": "In review at MIDL",
       "year": 2026,
       "pdf": "TODO",
-      "code": "TODO"
+      "code": "https://github.com/mirthAI/GeometryAware-MicroUS-INR"
     },
     {
       "title": "AortaGPT: An Interactive Vision-Language System for Aortic CT Analysis",
       "venue": "In review at CVPR",
       "year": 2026,
       "pdf": "TODO",
-      "code": "TODO"
+      "code": ""
     }
   ],
   "publicationTodo": "TODO: add PDF / code links.",

@@ -1,9 +1,9 @@
 {
   "title": "RecArt Demo",
-  "subtitle": "Static showcase of selected generations",
+  "subtitle": "Selected outputs from controlled image-generation experiments",
   "about": [
-    "This page is a static demo. No backend calls are made.",
-    "Use it to present representative outputs, prompts, and settings."
+    "A curated gallery of representative generations.",
+    "Each figure includes the prompt and key settings used to produce the result."
   ],
   "results": [
     {

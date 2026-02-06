@@ -1,5 +1,18 @@
 ---
 import demo from '../recart_demo.json';
+
+function hasTechnicalDetails(result) {
+  return Boolean(
+    result.technical_details ||
+      result.stage ||
+      result.cfg !== undefined ||
+      result.steps !== undefined ||
+      result.alpha !== undefined ||
+      result.seed !== undefined ||
+      result.prompt_original ||
+      result.prompt_final
+  );
+}
 ---
 
 <!doctype html>
@@ -41,6 +54,10 @@ import demo from '../recart_demo.json';
       pre {
         white-space: pre-wrap;
       }
+
+      details {
+        margin-top: 8px;
+      }
     </style>
   </head>
   <body>
@@ -75,19 +92,32 @@ import demo from '../recart_demo.json';
               <p>[No image path set yet]</p>
             )}
             <ul>
-              <li>Stage: {result.stage}</li>
-              <li>CFG: {result.cfg}</li>
-              <li>Steps: {result.steps}</li>
-              <li>Alpha: {result.alpha}</li>
-              <li>Seed: {result.seed}</li>
               <li>Tags: {result.tags.join(', ')}</li>
             </ul>
-            <p><strong>Original Prompt</strong></p>
-            <pre>{result.prompt_original}</pre>
-            <p><strong>Final Prompt</strong></p>
-            <pre>{result.prompt_final}</pre>
             <p><strong>Notes</strong></p>
             <pre>{result.notes}</pre>
+            {hasTechnicalDetails(result) && (
+              <details>
+                <summary>Technical details</summary>
+                {result.technical_details ? (
+                  <pre>{JSON.stringify(result.technical_details, null, 2)}</pre>
+                ) : (
+                  <>
+                    <ul>
+                      <li>Stage: {result.stage}</li>
+                      <li>CFG: {result.cfg}</li>
+                      <li>Steps: {result.steps}</li>
+                      <li>Alpha: {result.alpha}</li>
+                      <li>Seed: {result.seed}</li>
+                    </ul>
+                    <p><strong>Original Prompt</strong></p>
+                    <pre>{result.prompt_original}</pre>
+                    <p><strong>Final Prompt</strong></p>
+                    <pre>{result.prompt_final}</pre>
+                  </>
+                )}
+              </details>
+            )}
           </article>
         ))}
       </section>

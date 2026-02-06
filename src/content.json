@@ -1,0 +1,125 @@
+{
+  "name": "Harrison Chojnowski",
+  "profile": {
+    "name": "Harrison Chojnowski",
+    "email": "chojnowski.h@ufl.edu",
+    "phone": "(702) 355-5729",
+    "location": "Gainesville, FL",
+    "github": "https://github.com/hachoj"
+  },
+  "highlights": [
+    "B.S. Computer Science & Mathematics @ University of Florida (2024-2027)",
+    "Researcher @ MIRTH AI Lab (2024-Present)",
+    "OPS Researcher @ University of Florida (2025-Present)"
+  ],
+  "areas": [
+    "diffusion / flow matching",
+    "implicit neural representations (INRs)",
+    "medical imaging",
+    "image-text alignment"
+  ],
+  "about": {
+    "items": [
+      "TODO: Write a short bio (2-5 sentences) in your own words.",
+      "TODO: Add 2-3 sentences in your own words."
+    ],
+    "note": "Sourced from resume; keep this factual."
+  },
+  "whatsNew": {
+    "items": [
+      "TODO: Add a real update item (e.g., paper status change, new repo write-up).",
+      "TODO: Add another update item."
+    ],
+    "note": "A short changelog so the site reads as maintained."
+  },
+  "projects": [
+    {
+      "name": "PixArt/SD3 from Scratch (Full Pipeline)",
+      "stack": ["PyTorch", "vLLM"],
+      "detail": "Implemented full 5-stage training pipeline and full model stack end-to-end.",
+      "link": "https://github.com/hachoj/Pixart-Alpha-From-Scratch"
+    },
+    {
+      "name": "Geometry-Aware-MicroUS-INR",
+      "stack": ["Python"],
+      "detail": "TODO: Add 1-2 factual sentences describing what this repo does and your contribution.",
+      "link": "https://github.com/mirthAI/GeometryAware-MicroUS-INR"
+    },
+    {
+      "name": "GRPO-From-Scratch",
+      "stack": ["Python"],
+      "detail": "TODO: Add 1-2 factual sentences describing what this repo implements.",
+      "link": "https://github.com/hachoj/GRPO-From-Scratch"
+    },
+    {
+      "name": "PixArt Stage-1 POC (JAX Stack)",
+      "stack": ["Flax", "Optax", "Equinox", "Grain"],
+      "detail": "Proof-of-concept implementation for stage 1 to demonstrate JAX ecosystem proficiency.",
+      "link": "https://github.com/hachoj/PixelArt-Alpha-Equinox-Grain"
+    },
+    {
+      "name": "Triton",
+      "stack": ["Python"],
+      "detail": "TODO: Add 1-2 factual sentences describing what this repo contains.",
+      "link": "https://github.com/hachoj/Triton"
+    }
+  ],
+  "projectAssetsTodo": "TODO: Add 1-2 featured screenshots/GIFs per project (optional).",
+  "publications": [
+    {
+      "title": "Geometry-Aware Implicit Neural Reconstruction of Oblique Micro-Ultrasound Scans",
+      "venue": "In review at MIDL",
+      "year": 2026,
+      "pdf": "TODO",
+      "code": "TODO"
+    },
+    {
+      "title": "AortaGPT: An Interactive Vision-Language System for Aortic CT Analysis",
+      "venue": "In review at CVPR",
+      "year": 2026,
+      "pdf": "TODO",
+      "code": "TODO"
+    }
+  ],
+  "publicationTodo": "TODO: add PDF / code links.",
+  "timeline": [
+    {
+      "role": "Researcher, MIRTH AI Lab",
+      "period": "2024 - Present",
+      "location": "Gainesville, FL",
+      "details": [
+        "Trained diffusion and flow-matching generative models for high-fidelity medical image synthesis.",
+        "Developed implicit neural representations (INRs) for resolution-independent volumetric analysis.",
+        "Implemented GRPO pipelines to align model reasoning with expert clinical reports."
+      ]
+    },
+    {
+      "role": "Paid OPS Researcher, University of Florida",
+      "period": "2025 - Present",
+      "location": "Gainesville, FL",
+      "details": [
+        "Built feature extraction pipelines across medical imaging modalities including ultrasound.",
+        "Trained semantic embeddings from clinical reports using LLMs for image-text alignment."
+      ]
+    },
+    {
+      "role": "B.S. Computer Science, B.S. Mathematics, University of Florida",
+      "period": "Aug 2024 - May 2027",
+      "gpa": "3.95 / 4.00",
+      "relevantCoursework": [
+        "Deep Learning in Medical Image Analysis",
+        "Linear Algebra for Data Science",
+        "Real Analysis with Advanced Calculus I and II"
+      ]
+    }
+  ],
+  "contact": {
+    "email": "chojnowski.h@ufl.edu",
+    "github": "https://github.com/hachoj",
+    "todo": [
+      "Add LinkedIn, Google Scholar, and/or X.",
+      "Add public/resume.pdf and link it from nav."
+    ]
+  },
+  "assetTodo": "TODO: Add public/avatar.jpg to replace initials."
+}

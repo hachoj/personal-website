@@ -1,5 +1,6 @@
 ---
-import content from '../content.txt?raw';
+import content from '../content.json';
+const contentText = JSON.stringify(content, null, 2);
 ---
 
 <!doctype html>
@@ -8,24 +9,8 @@ import content from '../content.txt?raw';
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Harrison Chojnowski</title>
-    <style>
-      body {
-        margin: 0;
-        padding: 24px;
-        color: #111;
-        background: #fff;
-        font-family: "Courier New", Courier, monospace;
-        line-height: 1.5;
-      }
-
-      pre {
-        margin: 0;
-        white-space: pre-wrap;
-        word-break: break-word;
-      }
-    </style>
   </head>
   <body>
-    <pre>{content}</pre>
+    <pre>{contentText}</pre>
   </body>
 </html>

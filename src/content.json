@@ -15,18 +15,12 @@
   ],
   "researchInterests": {
     "items": [
-      "Research interests: self-supervised learning.",
-      "Research interests: reinforcement learning.",
-      "Research interests: geometric constraints and feature representations (manifolds, spectral structure).",
+      "Self-supervised learning.",
+      "Reinforcement learning.",
+      "Geometric constraints and feature representations (manifolds, spectral structure).",
       "Current focus: image-based SSL in medical imaging and abstract feature extraction from radiological reports."
     ],
     "note": ""
-  },
-  "whatsNew": {
-    "items": [
-      "TODO: Add latest updates (paper/repo milestones)."
-    ],
-    "note": "Intentionally left as TODO for now."
   },
   "projects": [
     {
@@ -74,6 +68,9 @@
   "publicationTodo": "TODO: add PDF / code links.",
   "timeline": [
     {
+      "organizationKey": "uf_health",
+      "logo": "/UF_health_logo.png",
+      "periodShort": "2024-",
       "role": "Researcher, MIRTH AI Lab",
       "period": "2024 - Present",
       "location": "Gainesville, FL",
@@ -84,6 +81,9 @@
       ]
     },
     {
+      "organizationKey": "uf_health",
+      "logo": "/UF_health_logo.png",
+      "periodShort": "2025-",
       "role": "Paid OPS Researcher, University of Florida",
       "period": "2025 - Present",
       "location": "Gainesville, FL",
@@ -93,6 +93,9 @@
       ]
     },
     {
+      "organizationKey": "uf",
+      "logo": "/uf_logo.png",
+      "periodShort": "2024-2027",
       "role": "B.S. Computer Science, B.S. Mathematics, University of Florida",
       "period": "Aug 2024 - May 2027",
       "gpa": "3.95 / 4.00",

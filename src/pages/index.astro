@@ -1,9 +1,18 @@
 ---
 import content from '../content.json';
 import '../styles/site.css';
+import { execSync } from 'node:child_process';
+import Timeline from '../components/Timeline.astro';
 
 function isExternalLink(value) {
   return typeof value === 'string' && /^https?:\/\//.test(value);
+}
+
+let lastUpdated = 'unknown';
+try {
+  lastUpdated = execSync('git log -1 --date=short --format=%cd').toString().trim();
+} catch (error) {
+  lastUpdated = 'unknown';
 }
 ---
 
@@ -28,34 +37,32 @@ function isExternalLink(value) {
           <p class="kicker">Machine Learning Research</p>
           <h1 class="display-title">{content.name}</h1>
           <p class="subtitle">Research portfolio in self-supervised learning, reinforcement learning, and medical imaging representation learning.</p>
+          <div class="meta-row">
+            <span class="meta-item">last updated {lastUpdated}</span>
+          </div>
         </div>
       </header>
 
       <section class="section-band rule-bottom">
         <div class="container narrow">
           <h2 class="section-title">Profile</h2>
-          <img class="profile-photo" src="/profile_picture.png" alt={content.profile.name} loading="lazy" />
-          <div class="meta-row">
-            <span class="meta-item">{content.profile.location}</span>
-            <span class="meta-item">{content.profile.phone}</span>
-            <span class="meta-item">{content.profile.email}</span>
+          <div class="profile-layout">
+            <img class="profile-photo" src="/profile_picture.png" alt={content.profile.name} loading="lazy" />
+            <div class="profile-meta-stack">
+              <div class="meta-row">
+                <span class="meta-item">{content.profile.location}</span>
+                <span class="meta-item">{content.profile.phone}</span>
+                <span class="meta-item">{content.profile.email}</span>
+              </div>
+              <div class="tag-list">
+                <a class="pill-tag" href={content.profile.github} target="_blank" rel="noreferrer">github</a>
+                {content.profile.linkedin && (
+                  <a class="pill-tag" href={content.profile.linkedin} target="_blank" rel="noreferrer">linkedin</a>
+                )}
+                <a class="pill-tag" href="/resume_temp.pdf" target="_blank" rel="noreferrer">resume</a>
+              </div>
+            </div>
           </div>
-          <div class="tag-list">
-            <a class="pill-tag" href={content.profile.github} target="_blank" rel="noreferrer">github</a>
-            {content.profile.linkedin && (
-              <a class="pill-tag" href={content.profile.linkedin} target="_blank" rel="noreferrer">linkedin</a>
-            )}
-            <a class="pill-tag" href="/resume_temp.pdf" target="_blank" rel="noreferrer">resume</a>
-          </div>
-        </div>
-      </section>
-
-      <section class="section-band rule-bottom">
-        <div class="container narrow">
-          <h2 class="section-title">Highlights</h2>
-          <ul class="plain-list">
-            {content.highlights.map((item) => <li>{item}</li>)}
-          </ul>
         </div>
       </section>
 
@@ -69,39 +76,13 @@ function isExternalLink(value) {
         </div>
       </section>
 
-      <section class="section-band rule-bottom">
-        <div class="container narrow">
-          <h2 class="section-title">What's New</h2>
-          <ul class="plain-list">
-            {content.whatsNew.items.map((item) => <li>{item}</li>)}
-          </ul>
-          <p class="subtitle">{content.whatsNew.note}</p>
-        </div>
-      </section>
+      <Timeline entries={content.timeline} />
 
-      <section class="section-band rule-bottom">
-        <div class="container narrow">
-          <h2 class="section-title">Projects</h2>
-          {content.projects.map((project) => (
-            <article class="result-detail-band rule-top">
-              <h3 class="result-title">{project.name}</h3>
-              <div class="meta-row">
-                {project.stack.map((item) => <span class="meta-item">{item}</span>)}
-              </div>
-              <p class="result-notes">{project.detail}</p>
-              <p class="kicker">
-                <a href={project.link} target="_blank" rel="noreferrer">Repository</a>
-              </p>
-            </article>
-          ))}
-          <p class="subtitle">{content.projectAssetsTodo}</p>
-        </div>
-      </section>
-
-      <section class="section-band rule-bottom">
+      <section class="section-band section-dense rule-bottom">
         <div class="container narrow">
           <h2 class="section-title">Publications</h2>
-          {content.publications.map((publication) => (
+          <div class="publications-list">
+            {content.publications.map((publication) => (
             <article class="result-detail-band rule-top">
               <h3 class="result-title">{publication.title}</h3>
               <div class="meta-row">
@@ -121,37 +102,30 @@ function isExternalLink(value) {
                 )}
               </div>
             </article>
-          ))}
+            ))}
+          </div>
           <p class="subtitle">{content.publicationTodo}</p>
         </div>
       </section>
 
-      <section class="section-band rule-bottom">
+      <section class="section-band section-dense rule-bottom">
         <div class="container narrow">
-          <h2 class="section-title">Timeline</h2>
-          {content.timeline.map((entry) => (
+          <h2 class="section-title">Projects</h2>
+          <div class="projects-list">
+            {content.projects.map((project) => (
             <article class="result-detail-band rule-top">
-              <h3 class="result-title">{entry.role}</h3>
+              <h3 class="result-title">{project.name}</h3>
               <div class="meta-row">
-                <span class="meta-item">{entry.period}</span>
-                {entry.location && <span class="meta-item">{entry.location}</span>}
-                {entry.gpa && <span class="meta-item">GPA {entry.gpa}</span>}
+                {project.stack.map((item) => <span class="meta-item">{item}</span>)}
               </div>
-              {entry.details && (
-                <ul class="plain-list">
-                  {entry.details.map((detail) => <li>{detail}</li>)}
-                </ul>
-              )}
-              {entry.relevantCoursework && (
-                <>
-                  <p class="kicker">Relevant Coursework</p>
-                  <ul class="plain-list">
-                    {entry.relevantCoursework.map((course) => <li>{course}</li>)}
-                  </ul>
-                </>
-              )}
+              <p class="result-notes">{project.detail}</p>
+              <p class="kicker">
+                <a href={project.link} target="_blank" rel="noreferrer">Repository</a>
+              </p>
             </article>
-          ))}
+            ))}
+          </div>
+          <p class="subtitle">{content.projectAssetsTodo}</p>
         </div>
       </section>
 

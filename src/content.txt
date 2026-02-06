@@ -1,0 +1,103 @@
+HARRISON CHOJNOWSKI
+
+PROFILE
+- Name: Harrison Chojnowski
+- Email: chojnowski.h@ufl.edu
+- Phone: (702) 355-5729
+- Location: Gainesville, FL
+- GitHub: https://github.com/hachoj
+
+HIGHLIGHTS
+- B.S. Computer Science & Mathematics @ University of Florida (2024–2027)
+- Researcher @ MIRTH AI Lab (2024–Present)
+- OPS Researcher @ University of Florida (2025–Present)
+
+AREAS
+- diffusion / flow matching
+- implicit neural representations (INRs)
+- medical imaging
+- image-text alignment
+
+ABOUT
+- TODO: Write a short bio (2-5 sentences) in your own words.
+- TODO: Add 2-3 sentences in your own words.
+- NOTE: Sourced from resume; keep this factual.
+
+WHAT'S NEW
+- TODO: Add a real update item (e.g., paper status change, new repo write-up).
+- TODO: Add another update item.
+- NOTE: A short changelog so the site reads as maintained.
+
+PROJECTS
+- PixArt/SD3 from Scratch (Full Pipeline)
+  - Stack: PyTorch, vLLM
+  - Detail: Implemented full 5-stage training pipeline and full model stack end-to-end.
+  - Link: https://github.com/hachoj/Pixart-Alpha-From-Scratch
+
+- Geometry-Aware-MicroUS-INR
+  - Stack: Python
+  - Detail: TODO: Add 1-2 factual sentences describing what this repo does and your contribution.
+  - Link: https://github.com/mirthAI/GeometryAware-MicroUS-INR
+
+- GRPO-From-Scratch
+  - Stack: Python
+  - Detail: TODO: Add 1-2 factual sentences describing what this repo implements.
+  - Link: https://github.com/hachoj/GRPO-From-Scratch
+
+- PixArt Stage-1 POC (JAX Stack)
+  - Stack: Flax, Optax, Equinox, Grain
+  - Detail: Proof-of-concept implementation for stage 1 to demonstrate JAX ecosystem proficiency.
+  - Link: https://github.com/hachoj/PixelArt-Alpha-Equinox-Grain
+
+- Triton
+  - Stack: Python
+  - Detail: TODO: Add 1-2 factual sentences describing what this repo contains.
+  - Link: https://github.com/hachoj/Triton
+
+- TODO: Add 1-2 featured screenshots/GIFs per project (optional).
+
+PUBLICATIONS
+- Geometry-Aware Implicit Neural Reconstruction of Oblique Micro-Ultrasound Scans
+  - Venue: In review at MIDL
+  - Year: 2026
+  - PDF: TODO
+  - Code: TODO
+
+- AortaGPT: An Interactive Vision-Language System for Aortic CT Analysis
+  - Venue: In review at CVPR
+  - Year: 2026
+  - PDF: TODO
+  - Code: TODO
+
+- TODO: add PDF / code links.
+
+TIMELINE
+- Researcher, MIRTH AI Lab
+  - Period: 2024 - Present
+  - Location: Gainesville, FL
+  - Trained diffusion and flow-matching generative models for high-fidelity medical image synthesis.
+  - Developed implicit neural representations (INRs) for resolution-independent volumetric analysis.
+  - Implemented GRPO pipelines to align model reasoning with expert clinical reports.
+
+- Paid OPS Researcher, University of Florida
+  - Period: 2025 - Present
+  - Location: Gainesville, FL
+  - Built feature extraction pipelines across medical imaging modalities including ultrasound.
+  - Trained semantic embeddings from clinical reports using LLMs for image-text alignment.
+
+- B.S. Computer Science, B.S. Mathematics, University of Florida
+  - Period: Aug 2024 - May 2027
+  - GPA: 3.95 / 4.00
+  - Relevant coursework:
+    - Deep Learning in Medical Image Analysis
+    - Linear Algebra for Data Science
+    - Real Analysis with Advanced Calculus I and II
+
+CONTACT
+- Email: chojnowski.h@ufl.edu
+- GitHub: https://github.com/hachoj
+- TODO: Add LinkedIn, Google Scholar, and/or X.
+- TODO: Add public/resume.pdf and link it from nav.
+
+ASSET TODO
+- TODO: Add public/avatar.jpg to replace initials.

@@ -1,132 +1,31 @@
 ---
-import Layout from '../layouts/Layout.astro';
-import SectionTitle from '../layouts/SectionTitle.astro';
-
-import {
-  profile,
-  highlights,
-  areas,
-  updates,
-  projects,
-  publications,
-  employment,
-  education
-} from '../data';
-
-import { getLastUpdated } from '../lastUpdated';
-
-const lastUpdated = getLastUpdated();
-const featuredProjects = projects.filter((p) => p.featured).slice(0, 4);
-const featuredPapers = publications.slice(0, 2);
+import content from '../content.txt?raw';
 ---
 
-<Layout title={`${profile.name} | Home`}>
-  <main class="page">
-    <header class="hero">
-      <div class="hero-grid">
-        <div class="avatar" aria-hidden="true">
-          <span>HC</span>
-        </div>
-        <div class="hero-copy">
-          <h1>{profile.name}</h1>
-          <p class="hero-sub">{highlights[0]}</p>
-          <p class="hero-sub">{highlights[1]}; {highlights[2]}</p>
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Harrison Chojnowski</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 24px;
+        color: #111;
+        background: #fff;
+        font-family: "Courier New", Courier, monospace;
+        line-height: 1.5;
+      }
 
-          <div class="hero-links">
-            <a href={profile.github} target="_blank" rel="noreferrer">GitHub</a>
-            <a href={`mailto:${profile.email}`}>Email</a>
-            <span>{profile.location}</span>
-          </div>
-
-          <p class="last-updated">Last updated: {lastUpdated}</p>
-
-          <div class="cta-row">
-            <a class="cta" href="/projects">Explore projects</a>
-            <a class="cta ghost" href="/papers">Read papers</a>
-            <a class="cta ghost" href="/timeline">View timeline</a>
-          </div>
-        </div>
-      </div>
-      <p class="avatar-todo">TODO: Add `public/avatar.jpg` to replace initials.</p>
-    </header>
-
-    <section class="section section-bio">
-      <SectionTitle title="About" icon="about" />
-      <p class="todo">TODO: Add 2-3 sentences in your own words.</p>
-      <p class="inline-list">Areas: {areas.join(' · ')}</p>
-      <p class="note"><a href="/about">More →</a></p>
-    </section>
-
-    <section class="section section-whatsnew">
-      <SectionTitle title="What's New" icon="papers" />
-      <p class="note">A short changelog so the site reads as maintained (edit in `src/data.ts`).</p>
-      <ul class="updates">
-        {updates.map((u) => <li>{u}</li>)}
-      </ul>
-    </section>
-
-    <section class="section section-projects">
-      <SectionTitle title="Featured Projects" icon="projects" />
-      <div class="cards">
-        {featuredProjects.map((p) => (
-          <article class="card">
-            <h3><a href={p.href} target="_blank" rel="noreferrer">{p.name}</a></h3>
-            <p class="entry-meta">{p.stack}</p>
-            <p>{p.detail}</p>
-          </article>
-        ))}
-      </div>
-      <p class="note"><a href="/projects">View all projects →</a></p>
-    </section>
-
-    <section class="section section-publications">
-      <SectionTitle title="Selected Papers" icon="papers" />
-      <div class="list">
-        {featuredPapers.map((paper) => (
-          <article class="row">
-            <div class="entry-head">
-              <h3>{paper.title}</h3>
-              <p>{paper.year}</p>
-            </div>
-            <p class="entry-meta">{paper.venue}</p>
-            <p class="note">TODO: add PDF / code links on `/papers`.</p>
-          </article>
-        ))}
-      </div>
-      <p class="note"><a href="/papers">View all papers →</a></p>
-    </section>
-
-    <section class="section section-timeline">
-      <SectionTitle title="Now / Recent" icon="work" />
-      <div class="timeline">
-        {employment.slice(0, 2).map((job) => (
-          <article class="entry">
-            <div class="entry-head">
-              <h3>{job.role}, <span class="org">{job.org}</span></h3>
-              <p>{job.period}</p>
-            </div>
-            <p class="entry-meta">{job.location}</p>
-          </article>
-        ))}
-        {education.slice(0, 1).map((e) => (
-          <article class="entry">
-            <div class="entry-head">
-              <h3>{e.degree}, <span class="org">{e.school}</span></h3>
-              <p>{e.period}</p>
-            </div>
-            <p class="entry-meta">GPA {e.gpa}</p>
-          </article>
-        ))}
-      </div>
-      <p class="note"><a href="/timeline">Full timeline →</a></p>
-    </section>
-
-    <section class="section section-contact">
-      <SectionTitle title="Contact" icon="contact" />
-      <p class="inline-list">
-        Email: <a href={`mailto:${profile.email}`}>{profile.email}</a> · GitHub: <a href={profile.github} target="_blank" rel="noreferrer">hachoj</a>
-      </p>
-      <p class="note"><a href="/contact">More contact options →</a></p>
-    </section>
-  </main>
-</Layout>
+      pre {
+        margin: 0;
+        white-space: pre-wrap;
+        word-break: break-word;
+      }
+    </style>
+  </head>
+  <body>
+    <pre>{content}</pre>
+  </body>
+</html>

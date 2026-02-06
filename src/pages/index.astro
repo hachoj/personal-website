@@ -34,6 +34,7 @@ function isExternalLink(value) {
       <section class="section-band rule-bottom">
         <div class="container narrow">
           <h2 class="section-title">Profile</h2>
+          <img class="profile-photo" src="/profile_picture.png" alt={content.profile.name} loading="lazy" />
           <div class="meta-row">
             <span class="meta-item">{content.profile.location}</span>
             <span class="meta-item">{content.profile.phone}</span>
@@ -64,7 +65,7 @@ function isExternalLink(value) {
           <ul class="plain-list">
             {content.researchInterests.items.map((item) => <li>{item}</li>)}
           </ul>
-          <p class="subtitle">{content.researchInterests.note}</p>
+          {content.researchInterests.note && <p class="subtitle">{content.researchInterests.note}</p>}
         </div>
       </section>
 
@@ -173,7 +174,6 @@ function isExternalLink(value) {
               Resume: <a href="/resume_temp.pdf" target="_blank" rel="noreferrer">/resume_temp.pdf</a>
             </li>
             {content.contact.todo.map((item) => <li>TODO: {item}</li>)}
-            <li>{content.assetTodo}</li>
           </ul>
         </div>
       </section>

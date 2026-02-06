@@ -202,6 +202,15 @@ a:focus-visible {
   max-width: 72ch;
 }
 
+.profile-photo {
+  display: block;
+  width: min(100%, 220px);
+  max-width: 220px;
+  height: auto;
+  border: var(--rule-1);
+  margin: 0 0 var(--space-3);
+}
+
 .detail-toggle {
   margin-top: var(--space-4);
   border-top: var(--rule-1);

@@ -20,7 +20,7 @@
       "Research interests: geometric constraints and feature representations (manifolds, spectral structure).",
       "Current focus: image-based SSL in medical imaging and abstract feature extraction from radiological reports."
     ],
-    "note": "Research-focus summary."
+    "note": ""
   },
   "whatsNew": {
     "items": [
@@ -31,7 +31,7 @@
   "projects": [
     {
       "name": "PixArt/SD3 from Scratch (Full Pipeline)",
-      "stack": ["PyTorch", "vLLM"],
+      "stack": ["PyTorch", "Transformer Engine", "vLLM", "webdataset"],
       "detail": "Implemented a full MMDiT stack from scratch in both JAX/Equinox and PyTorch, including a 22M-image caption+latent pipeline (Qwen3-VL-8B via vLLM) and multi-stage ImageNet pretraining/finetuning with SD3-style rectified-flow design choices.",
       "link": "https://github.com/hachoj/Pixart-Alpha-From-Scratch"
     },
@@ -42,12 +42,6 @@
       "link": "https://github.com/mirthAI/GeometryAware-MicroUS-INR"
     },
     {
-      "name": "GRPO-From-Scratch",
-      "stack": ["Python"],
-      "detail": "From-scratch GRPO implementation for preference-based alignment experiments; used as part of pipelines aligning model outputs with expert-style clinical reporting signals.",
-      "link": "https://github.com/hachoj/GRPO-From-Scratch"
-    },
-    {
       "name": "PixArt Stage-1 POC (JAX Stack)",
       "stack": ["Flax", "Optax", "Equinox", "Grain"],
       "detail": "Proof-of-concept implementation for stage 1 to demonstrate JAX ecosystem proficiency.",
@@ -55,7 +49,7 @@
     },
     {
       "name": "Triton",
-      "stack": ["Python"],
+      "stack": ["Python", "Triton"],
       "detail": "TODO: Add factual project details from repo/readme (scope and your contribution).",
       "link": "https://github.com/hachoj/Triton"
     }
@@ -116,6 +110,5 @@
     "todo": [
       "Add Google Scholar and/or X."
     ]
-  },
-  "assetTodo": "TODO: Wire in /profile_picture.png in the hero/profile section."
+  }
 }

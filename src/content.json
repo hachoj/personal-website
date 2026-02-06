@@ -5,7 +5,8 @@
     "email": "chojnowski.h@ufl.edu",
     "phone": "(702) 355-5729",
     "location": "Gainesville, FL",
-    "github": "https://github.com/hachoj"
+    "github": "https://github.com/hachoj",
+    "linkedin": "https://www.linkedin.com/in/harrison-chojnowski/"
   },
   "highlights": [
     "B.S. Computer Science & Mathematics @ University of Florida (2024-2027)",
@@ -20,35 +21,36 @@
   ],
   "about": {
     "items": [
-      "TODO: Write a short bio (2-5 sentences) in your own words.",
-      "TODO: Add 2-3 sentences in your own words."
+      "Research interests: self-supervised learning.",
+      "Research interests: reinforcement learning.",
+      "Research interests: geometric constraints and feature representations (manifolds, spectral structure).",
+      "Current focus: image-based SSL in medical imaging and abstract feature extraction from radiological reports."
     ],
-    "note": "Sourced from resume; keep this factual."
+    "note": "Research-focus summary."
   },
   "whatsNew": {
     "items": [
-      "TODO: Add a real update item (e.g., paper status change, new repo write-up).",
-      "TODO: Add another update item."
+      "TODO: Add latest updates (paper/repo milestones)."
     ],
-    "note": "A short changelog so the site reads as maintained."
+    "note": "Intentionally left as TODO for now."
   },
   "projects": [
     {
       "name": "PixArt/SD3 from Scratch (Full Pipeline)",
       "stack": ["PyTorch", "vLLM"],
-      "detail": "Implemented full 5-stage training pipeline and full model stack end-to-end.",
+      "detail": "Implemented a full MMDiT stack from scratch in both JAX/Equinox and PyTorch, including a 22M-image caption+latent pipeline (Qwen3-VL-8B via vLLM) and multi-stage ImageNet pretraining/finetuning with SD3-style rectified-flow design choices.",
       "link": "https://github.com/hachoj/Pixart-Alpha-From-Scratch"
     },
     {
       "name": "Geometry-Aware-MicroUS-INR",
       "stack": ["Python"],
-      "detail": "TODO: Add 1-2 factual sentences describing what this repo does and your contribution.",
+      "detail": "Geometry-aware implicit neural reconstruction for oblique micro-ultrasound: replaced linear interpolation with a learned model (+9% SSIM over baselines), reconstructed coherent 3D volumes from oblique slices, and introduced a HAT-encoder-based INR design for inter-slice modeling.",
       "link": "https://github.com/mirthAI/GeometryAware-MicroUS-INR"
     },
     {
       "name": "GRPO-From-Scratch",
       "stack": ["Python"],
-      "detail": "TODO: Add 1-2 factual sentences describing what this repo implements.",
+      "detail": "From-scratch GRPO implementation for preference-based alignment experiments; used as part of pipelines aligning model outputs with expert-style clinical reporting signals.",
       "link": "https://github.com/hachoj/GRPO-From-Scratch"
     },
     {
@@ -60,7 +62,7 @@
     {
       "name": "Triton",
       "stack": ["Python"],
-      "detail": "TODO: Add 1-2 factual sentences describing what this repo contains.",
+      "detail": "TODO: Add factual project details from repo/readme (scope and your contribution).",
       "link": "https://github.com/hachoj/Triton"
     }
   ],
@@ -116,10 +118,10 @@
   "contact": {
     "email": "chojnowski.h@ufl.edu",
     "github": "https://github.com/hachoj",
+    "linkedin": "https://www.linkedin.com/in/harrison-chojnowski/",
     "todo": [
-      "Add LinkedIn, Google Scholar, and/or X.",
-      "Add public/resume.pdf and link it from nav."
+      "Add Google Scholar and/or X."
     ]
   },
-  "assetTodo": "TODO: Add public/avatar.jpg to replace initials."
+  "assetTodo": "TODO: Wire in /profile_picture.png in the hero/profile section."
 }

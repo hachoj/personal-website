@@ -45,24 +45,11 @@ function getMetaItems(result) {
           </nav>
           <p class="kicker">Image Generation Study</p>
           <h1 class="display-title">{demo.title}</h1>
-          <p class="subtitle">{demo.subtitle}</p>
+          <p class="subtitle">Image generation results from my PixArt/SD3-from-scratch training pipeline.</p>
         </div>
       </header>
 
-      <section class="section-band rule-bottom">
-        <div class="container narrow">
-          <h2 class="section-title">About</h2>
-          <ul class="plain-list">
-            {demo.about.map((item) => <li>{item}</li>)}
-          </ul>
-        </div>
-      </section>
-
-      <section class="section-band rule-bottom" aria-label="Results">
-        <div class="container narrow">
-          <h2 class="section-title">Results</h2>
-          <p class="results-lede">Continuous gallery stream with compact technical metadata per sample.</p>
-        </div>
+      <section class="rule-bottom" aria-label="Results">
         {demo.results.map((result) => (
           <article id={result.id} class="result-flow rule-top">
             <div class="result-image-band">

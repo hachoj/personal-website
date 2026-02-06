@@ -1,5 +1,10 @@
 ---
 import content from '../content.json';
+import '../styles/site.css';
+
+function isExternalLink(value) {
+  return typeof value === 'string' && /^https?:\/\//.test(value);
+}
 ---
 
 <!doctype html>
@@ -9,117 +14,168 @@ import content from '../content.json';
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Harrison Chojnowski</title>
   </head>
-  <body>
-    <main id="home">
-      <header>
-        <nav>
-          <a href="#home">Home</a>
-          <span> | </span>
-          <a href="/recart_demo">recart_demo</a>
-          <span> | </span>
-          <a href="/resume_temp.pdf" target="_blank" rel="noreferrer">Resume</a>
-        </nav>
-        <h1>{content.name}</h1>
-        <p>Minimal personal site</p>
+  <body class="site-body">
+    <main id="home" class="page-shell">
+      <header class="section-band rule-top rule-bottom">
+        <div class="container">
+          <nav class="top-nav" aria-label="Primary">
+            <a href="#home">Home</a>
+            <span> | </span>
+            <a href="/recart_demo">recart_demo</a>
+            <span> | </span>
+            <a href="/resume_temp.pdf" target="_blank" rel="noreferrer">Resume</a>
+          </nav>
+          <p class="kicker">Machine Learning Research</p>
+          <h1 class="display-title">{content.name}</h1>
+          <p class="subtitle">Research portfolio in self-supervised learning, reinforcement learning, and medical imaging representation learning.</p>
+        </div>
       </header>
 
-      <section>
-        <h2>Profile</h2>
-        <ul>
-          <li>Name: {content.profile.name}</li>
-          <li>Email: {content.profile.email}</li>
-          <li>Phone: {content.profile.phone}</li>
-          <li>Location: {content.profile.location}</li>
-          <li><a href={content.profile.github}>GitHub</a></li>
-        </ul>
+      <section class="section-band rule-bottom">
+        <div class="container narrow">
+          <h2 class="section-title">Profile</h2>
+          <div class="meta-row">
+            <span class="meta-item">{content.profile.location}</span>
+            <span class="meta-item">{content.profile.phone}</span>
+            <span class="meta-item">{content.profile.email}</span>
+          </div>
+          <div class="tag-list">
+            <a class="pill-tag" href={content.profile.github} target="_blank" rel="noreferrer">github</a>
+            {content.profile.linkedin && (
+              <a class="pill-tag" href={content.profile.linkedin} target="_blank" rel="noreferrer">linkedin</a>
+            )}
+            <a class="pill-tag" href="/resume_temp.pdf" target="_blank" rel="noreferrer">resume</a>
+          </div>
+        </div>
       </section>
 
-      <section>
-        <h2>Highlights</h2>
-        <ul>
-          {content.highlights.map((item) => <li>{item}</li>)}
-        </ul>
+      <section class="section-band rule-bottom">
+        <div class="container narrow">
+          <h2 class="section-title">Highlights</h2>
+          <ul class="plain-list">
+            {content.highlights.map((item) => <li>{item}</li>)}
+          </ul>
+        </div>
       </section>
 
-      <section>
-        <h2>Research Interests</h2>
-        <ul>
-          {content.researchInterests.items.map((item) => <li>{item}</li>)}
-          <li>Note: {content.researchInterests.note}</li>
-        </ul>
+      <section class="section-band rule-bottom">
+        <div class="container narrow">
+          <h2 class="section-title">Research Interests</h2>
+          <ul class="plain-list">
+            {content.researchInterests.items.map((item) => <li>{item}</li>)}
+          </ul>
+          <p class="subtitle">{content.researchInterests.note}</p>
+        </div>
       </section>
 
-      <section>
-        <h2>What's New</h2>
-        <ul>
-          {content.whatsNew.items.map((item) => <li>{item}</li>)}
-          <li>Note: {content.whatsNew.note}</li>
-        </ul>
+      <section class="section-band rule-bottom">
+        <div class="container narrow">
+          <h2 class="section-title">What's New</h2>
+          <ul class="plain-list">
+            {content.whatsNew.items.map((item) => <li>{item}</li>)}
+          </ul>
+          <p class="subtitle">{content.whatsNew.note}</p>
+        </div>
       </section>
 
-      <section>
-        <h2>Projects</h2>
-        <ul>
+      <section class="section-band rule-bottom">
+        <div class="container narrow">
+          <h2 class="section-title">Projects</h2>
           {content.projects.map((project) => (
-            <li>
-              <strong>{project.name}</strong>
-              <ul>
-                <li>Stack: {project.stack.join(', ')}</li>
-                <li>Detail: {project.detail}</li>
-                <li><a href={project.link}>Link</a></li>
-              </ul>
-            </li>
+            <article class="result-detail-band rule-top">
+              <h3 class="result-title">{project.name}</h3>
+              <div class="meta-row">
+                {project.stack.map((item) => <span class="meta-item">{item}</span>)}
+              </div>
+              <p class="result-notes">{project.detail}</p>
+              <p class="kicker">
+                <a href={project.link} target="_blank" rel="noreferrer">Repository</a>
+              </p>
+            </article>
           ))}
-          <li>{content.projectAssetsTodo}</li>
-        </ul>
+          <p class="subtitle">{content.projectAssetsTodo}</p>
+        </div>
       </section>
 
-      <section>
-        <h2>Publications</h2>
-        <ul>
+      <section class="section-band rule-bottom">
+        <div class="container narrow">
+          <h2 class="section-title">Publications</h2>
           {content.publications.map((publication) => (
-            <li>
-              <strong>{publication.title}</strong>
-              <ul>
-                <li>Venue: {publication.venue}</li>
-                <li>Year: {publication.year}</li>
-                <li>PDF: {publication.pdf}</li>
-                <li>Code: {publication.code}</li>
-              </ul>
-            </li>
+            <article class="result-detail-band rule-top">
+              <h3 class="result-title">{publication.title}</h3>
+              <div class="meta-row">
+                <span class="meta-item">{publication.venue}</span>
+                <span class="meta-item">{publication.year}</span>
+              </div>
+              <div class="tag-list">
+                {isExternalLink(publication.pdf) ? (
+                  <a class="pill-tag" href={publication.pdf} target="_blank" rel="noreferrer">pdf</a>
+                ) : (
+                  <span class="pill-tag">pdf: {publication.pdf || 'n/a'}</span>
+                )}
+                {isExternalLink(publication.code) ? (
+                  <a class="pill-tag" href={publication.code} target="_blank" rel="noreferrer">code</a>
+                ) : (
+                  <span class="pill-tag">code: {publication.code || 'n/a'}</span>
+                )}
+              </div>
+            </article>
           ))}
-          <li>{content.publicationTodo}</li>
-        </ul>
+          <p class="subtitle">{content.publicationTodo}</p>
+        </div>
       </section>
 
-      <section>
-        <h2>Timeline</h2>
-        <ul>
+      <section class="section-band rule-bottom">
+        <div class="container narrow">
+          <h2 class="section-title">Timeline</h2>
           {content.timeline.map((entry) => (
-            <li>
-              <strong>{entry.role}</strong>
-              <ul>
-                <li>Period: {entry.period}</li>
-                {entry.location && <li>Location: {entry.location}</li>}
-                {entry.gpa && <li>GPA: {entry.gpa}</li>}
-                {entry.details && entry.details.map((detail) => <li>{detail}</li>)}
-                {entry.relevantCoursework &&
-                  entry.relevantCoursework.map((course) => <li>{course}</li>)}
-              </ul>
-            </li>
+            <article class="result-detail-band rule-top">
+              <h3 class="result-title">{entry.role}</h3>
+              <div class="meta-row">
+                <span class="meta-item">{entry.period}</span>
+                {entry.location && <span class="meta-item">{entry.location}</span>}
+                {entry.gpa && <span class="meta-item">GPA {entry.gpa}</span>}
+              </div>
+              {entry.details && (
+                <ul class="plain-list">
+                  {entry.details.map((detail) => <li>{detail}</li>)}
+                </ul>
+              )}
+              {entry.relevantCoursework && (
+                <>
+                  <p class="kicker">Relevant Coursework</p>
+                  <ul class="plain-list">
+                    {entry.relevantCoursework.map((course) => <li>{course}</li>)}
+                  </ul>
+                </>
+              )}
+            </article>
           ))}
-        </ul>
+        </div>
       </section>
 
-      <section>
-        <h2>Contact</h2>
-        <ul>
-          <li>Email: {content.contact.email}</li>
-          <li><a href={content.contact.github}>GitHub</a></li>
-          <li><a href="/resume_temp.pdf" target="_blank" rel="noreferrer">Resume PDF</a></li>
-          {content.contact.todo.map((item) => <li>TODO: {item}</li>)}
-          <li>{content.assetTodo}</li>
-        </ul>
+      <section class="section-band rule-bottom">
+        <div class="container narrow">
+          <h2 class="section-title">Contact</h2>
+          <ul class="plain-list">
+            <li>
+              Email: <a href={`mailto:${content.contact.email}`}>{content.contact.email}</a>
+            </li>
+            <li>
+              GitHub: <a href={content.contact.github} target="_blank" rel="noreferrer">{content.contact.github}</a>
+            </li>
+            {content.contact.linkedin && (
+              <li>
+                LinkedIn: <a href={content.contact.linkedin} target="_blank" rel="noreferrer">{content.contact.linkedin}</a>
+              </li>
+            )}
+            <li>
+              Resume: <a href="/resume_temp.pdf" target="_blank" rel="noreferrer">/resume_temp.pdf</a>
+            </li>
+            {content.contact.todo.map((item) => <li>TODO: {item}</li>)}
+            <li>{content.assetTodo}</li>
+          </ul>
+        </div>
       </section>
     </main>
   </body>

@@ -1,6 +1,5 @@
 ---
 import content from '../content.json';
-const contentText = JSON.stringify(content, null, 2);
 ---
 
 <!doctype html>
@@ -11,6 +10,121 @@ const contentText = JSON.stringify(content, null, 2);
     <title>Harrison Chojnowski</title>
   </head>
   <body>
-    <pre>{contentText}</pre>
+    <main id="home">
+      <header>
+        <nav>
+          <a href="#home">Home</a>
+          <span> | </span>
+          <a href="#">TEMP</a>
+        </nav>
+        <h1>{content.name}</h1>
+        <p>Minimal personal site</p>
+      </header>
+
+      <section>
+        <h2>Profile</h2>
+        <ul>
+          <li>Name: {content.profile.name}</li>
+          <li>Email: {content.profile.email}</li>
+          <li>Phone: {content.profile.phone}</li>
+          <li>Location: {content.profile.location}</li>
+          <li><a href={content.profile.github}>GitHub</a></li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Highlights</h2>
+        <ul>
+          {content.highlights.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Areas</h2>
+        <ul>
+          {content.areas.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+
+      <section>
+        <h2>About</h2>
+        <ul>
+          {content.about.items.map((item) => <li>{item}</li>)}
+          <li>Note: {content.about.note}</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>What's New</h2>
+        <ul>
+          {content.whatsNew.items.map((item) => <li>{item}</li>)}
+          <li>Note: {content.whatsNew.note}</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Projects</h2>
+        <ul>
+          {content.projects.map((project) => (
+            <li>
+              <strong>{project.name}</strong>
+              <ul>
+                <li>Stack: {project.stack.join(', ')}</li>
+                <li>Detail: {project.detail}</li>
+                <li><a href={project.link}>Link</a></li>
+              </ul>
+            </li>
+          ))}
+          <li>{content.projectAssetsTodo}</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Publications</h2>
+        <ul>
+          {content.publications.map((publication) => (
+            <li>
+              <strong>{publication.title}</strong>
+              <ul>
+                <li>Venue: {publication.venue}</li>
+                <li>Year: {publication.year}</li>
+                <li>PDF: {publication.pdf}</li>
+                <li>Code: {publication.code}</li>
+              </ul>
+            </li>
+          ))}
+          <li>{content.publicationTodo}</li>
+        </ul>
+      </section>
+
+      <section>
+        <h2>Timeline</h2>
+        <ul>
+          {content.timeline.map((entry) => (
+            <li>
+              <strong>{entry.role}</strong>
+              <ul>
+                <li>Period: {entry.period}</li>
+                {entry.location && <li>Location: {entry.location}</li>}
+                {entry.gpa && <li>GPA: {entry.gpa}</li>}
+                {entry.details && entry.details.map((detail) => <li>{detail}</li>)}
+                {entry.relevantCoursework &&
+                  entry.relevantCoursework.map((course) => <li>{course}</li>)}
+              </ul>
+            </li>
+          ))}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Contact</h2>
+        <ul>
+          <li>Email: {content.contact.email}</li>
+          <li><a href={content.contact.github}>GitHub</a></li>
+          {content.contact.todo.map((item) => <li>TODO: {item}</li>)}
+          <li>{content.assetTodo}</li>
+        </ul>
+      </section>
+    </main>
   </body>
 </html>

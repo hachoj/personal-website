@@ -147,9 +147,11 @@ a:focus-visible {
 
 .result-image {
   display: block;
-  width: 100%;
+  width: min(100%, 512px);
+  max-width: 512px;
   height: auto;
   border: var(--rule-1);
+  margin-inline: auto;
 }
 
 .result-detail-band {

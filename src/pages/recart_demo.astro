@@ -3,14 +3,12 @@ import demo from '../recart_demo.json';
 
 function hasTechnicalDetails(result) {
   return Boolean(
+    result.prompt ||
     result.technical_details ||
       result.stage ||
       result.cfg !== undefined ||
       result.steps !== undefined ||
-      result.alpha !== undefined ||
-      result.seed !== undefined ||
-      result.prompt_original ||
-      result.prompt_final
+      result.alpha !== undefined
   );
 }
 ---
@@ -103,17 +101,18 @@ function hasTechnicalDetails(result) {
                   <pre>{JSON.stringify(result.technical_details, null, 2)}</pre>
                 ) : (
                   <>
+                    {result.prompt && (
+                      <>
+                        <p><strong>Prompt</strong></p>
+                        <pre>{result.prompt}</pre>
+                      </>
+                    )}
                     <ul>
                       <li>Stage: {result.stage}</li>
                       <li>CFG: {result.cfg}</li>
                       <li>Steps: {result.steps}</li>
                       <li>Alpha: {result.alpha}</li>
-                      <li>Seed: {result.seed}</li>
                     </ul>
-                    <p><strong>Original Prompt</strong></p>
-                    <pre>{result.prompt_original}</pre>
-                    <p><strong>Final Prompt</strong></p>
-                    <pre>{result.prompt_final}</pre>
                   </>
                 )}
               </details>

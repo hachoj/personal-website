@@ -77,11 +77,6 @@ function getMetaItems(result) {
             <div class="result-detail-band rule-top">
               <div class="container narrow">
                 <h3 class="result-title">{result.title}</h3>
-                {getMetaItems(result).length > 0 && (
-                  <div class="meta-row">
-                    {getMetaItems(result).map((item) => <span class="meta-item">{item}</span>)}
-                  </div>
-                )}
                 {result.tags?.length > 0 && (
                   <div class="tag-list">
                     {result.tags.map((tag) => <span class="pill-tag">{tag}</span>)}
@@ -92,9 +87,21 @@ function getMetaItems(result) {
                   <details class="detail-toggle">
                     <summary>Technical Details</summary>
                     {result.technical_details ? (
-                      <pre class="mono-block">{JSON.stringify(result.technical_details, null, 2)}</pre>
+                      <>
+                        {getMetaItems(result).length > 0 && (
+                          <div class="meta-row">
+                            {getMetaItems(result).map((item) => <span class="meta-item">{item}</span>)}
+                          </div>
+                        )}
+                        <pre class="mono-block">{JSON.stringify(result.technical_details, null, 2)}</pre>
+                      </>
                     ) : (
                       <>
+                        {getMetaItems(result).length > 0 && (
+                          <div class="meta-row">
+                            {getMetaItems(result).map((item) => <span class="meta-item">{item}</span>)}
+                          </div>
+                        )}
                         {result.prompt && (
                           <>
                             <p class="kicker">Prompt</p>

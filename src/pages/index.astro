@@ -16,6 +16,8 @@ import content from '../content.json';
           <a href="#home">Home</a>
           <span> | </span>
           <a href="#">TEMP</a>
+          <span> | </span>
+          <a href="/resume_temp.pdf" target="_blank" rel="noreferrer">Resume</a>
         </nav>
         <h1>{content.name}</h1>
         <p>Minimal personal site</p>
@@ -121,6 +123,7 @@ import content from '../content.json';
         <ul>
           <li>Email: {content.contact.email}</li>
           <li><a href={content.contact.github}>GitHub</a></li>
+          <li><a href="/resume_temp.pdf" target="_blank" rel="noreferrer">Resume PDF</a></li>
           {content.contact.todo.map((item) => <li>TODO: {item}</li>)}
           <li>{content.assetTodo}</li>
         </ul>

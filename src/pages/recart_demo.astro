@@ -1,0 +1,103 @@
+---
+import demo from '../recart_demo.json';
+---
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>RecArt Demo</title>
+    <style>
+      body {
+        margin: 0;
+        padding: 20px;
+        font-family: Arial, sans-serif;
+        line-height: 1.4;
+      }
+
+      main {
+        max-width: 900px;
+      }
+
+      section {
+        margin-top: 24px;
+      }
+
+      article {
+        border: 1px solid #ccc;
+        padding: 12px;
+        margin-top: 12px;
+      }
+
+      img {
+        width: 100%;
+        max-width: 720px;
+        height: auto;
+        display: block;
+        margin: 8px 0;
+      }
+
+      pre {
+        white-space: pre-wrap;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <header>
+        <nav>
+          <a href="/">Home</a>
+          <span> | </span>
+          <a href="/recart_demo">recart_demo</a>
+          <span> | </span>
+          <a href="/resume_temp.pdf" target="_blank" rel="noreferrer">Resume</a>
+        </nav>
+        <h1>{demo.title}</h1>
+        <p>{demo.subtitle}</p>
+      </header>
+
+      <section>
+        <h2>About</h2>
+        <ul>
+          {demo.about.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+
+      <section>
+        <h2>Results</h2>
+        {demo.results.map((result) => (
+          <article id={result.id}>
+            <h3>{result.title}</h3>
+            {result.image ? (
+              <img src={result.image} alt={result.title} loading="lazy" />
+            ) : (
+              <p>[No image path set yet]</p>
+            )}
+            <ul>
+              <li>Stage: {result.stage}</li>
+              <li>CFG: {result.cfg}</li>
+              <li>Steps: {result.steps}</li>
+              <li>Alpha: {result.alpha}</li>
+              <li>Seed: {result.seed}</li>
+              <li>Tags: {result.tags.join(', ')}</li>
+            </ul>
+            <p><strong>Original Prompt</strong></p>
+            <pre>{result.prompt_original}</pre>
+            <p><strong>Final Prompt</strong></p>
+            <pre>{result.prompt_final}</pre>
+            <p><strong>Notes</strong></p>
+            <pre>{result.notes}</pre>
+          </article>
+        ))}
+      </section>
+
+      <section>
+        <h2>TODO</h2>
+        <ul>
+          {demo.todo.map((item) => <li>{item}</li>)}
+        </ul>
+      </section>
+    </main>
+  </body>
+</html>

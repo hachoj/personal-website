@@ -1,0 +1,140 @@
+{
+  "title": "RecArt Demo",
+  "subtitle": "Static showcase of selected generations",
+  "about": [
+    "This page is a static demo. No backend calls are made.",
+    "Use it to present representative outputs, prompts, and settings."
+  ],
+  "results": [
+    {
+      "id": "demo-001",
+      "title": "Ink Painting",
+      "image": "/figures/ink_painting.png",
+      "prompt_original": "TODO: Add original prompt.",
+      "prompt_final": "TODO: Add final prompt used for generation.",
+      "stage": "Stage 5",
+      "cfg": 4.0,
+      "steps": 24,
+      "alpha": 1.75,
+      "seed": 12345,
+      "notes": "TODO: Explain what this sample demonstrates.",
+      "tags": ["ink", "style"]
+    },
+    {
+      "id": "demo-002",
+      "title": "Oil Painting",
+      "image": "/figures/oil_painting.png",
+      "prompt_original": "TODO: Add original prompt.",
+      "prompt_final": "TODO: Add style-overridden prompt.",
+      "stage": "Stage 4",
+      "cfg": 4.0,
+      "steps": 24,
+      "alpha": 1.0,
+      "seed": 67890,
+      "notes": "TODO: Highlight the style-control effect.",
+      "tags": ["style", "comparison"]
+    },
+    {
+      "id": "demo-003",
+      "title": "Marble Statue",
+      "image": "/figures/marble_statue.png",
+      "prompt_original": "TODO: Add original prompt.",
+      "prompt_final": "TODO: Add final prompt used for generation.",
+      "stage": "Stage 5",
+      "cfg": 4.0,
+      "steps": 24,
+      "alpha": 1.75,
+      "seed": 11111,
+      "notes": "TODO: Explain what this sample demonstrates.",
+      "tags": ["sculpture", "material"]
+    },
+    {
+      "id": "demo-004",
+      "title": "Scary Unicorn",
+      "image": "/figures/scary_unicorn.png",
+      "prompt_original": "TODO: Add original prompt.",
+      "prompt_final": "TODO: Add final prompt used for generation.",
+      "stage": "Stage 5",
+      "cfg": 4.0,
+      "steps": 24,
+      "alpha": 1.75,
+      "seed": 22222,
+      "notes": "TODO: Explain what this sample demonstrates.",
+      "tags": ["fantasy", "creature"]
+    },
+    {
+      "id": "demo-005",
+      "title": "Anime Girl Rainy",
+      "image": "/figures/anime_girl_rainy.png",
+      "prompt_original": "TODO: Add original prompt.",
+      "prompt_final": "TODO: Add final prompt used for generation.",
+      "stage": "Stage 4",
+      "cfg": 4.0,
+      "steps": 24,
+      "alpha": 1.0,
+      "seed": 33333,
+      "notes": "TODO: Explain what this sample demonstrates.",
+      "tags": ["anime", "rain"]
+    },
+    {
+      "id": "demo-006",
+      "title": "Low Poly Vader",
+      "image": "/figures/low_poly_vader.png",
+      "prompt_original": "TODO: Add original prompt.",
+      "prompt_final": "TODO: Add final prompt used for generation.",
+      "stage": "Stage 4",
+      "cfg": 4.0,
+      "steps": 24,
+      "alpha": 1.0,
+      "seed": 44444,
+      "notes": "TODO: Explain what this sample demonstrates.",
+      "tags": ["low-poly", "character"]
+    },
+    {
+      "id": "demo-007",
+      "title": "Low Poly Croissant",
+      "image": "/figures/low_poly_croissant.png",
+      "prompt_original": "TODO: Add original prompt.",
+      "prompt_final": "TODO: Add final prompt used for generation.",
+      "stage": "Stage 4",
+      "cfg": 4.0,
+      "steps": 24,
+      "alpha": 1.0,
+      "seed": 55555,
+      "notes": "TODO: Explain what this sample demonstrates.",
+      "tags": ["low-poly", "object"]
+    },
+    {
+      "id": "demo-008",
+      "title": "Drawn Cabin",
+      "image": "/figures/drawn_cabin.png",
+      "prompt_original": "TODO: Add original prompt.",
+      "prompt_final": "TODO: Add final prompt used for generation.",
+      "stage": "Stage 4",
+      "cfg": 4.0,
+      "steps": 24,
+      "alpha": 1.0,
+      "seed": 66666,
+      "notes": "TODO: Explain what this sample demonstrates.",
+      "tags": ["drawing", "environment"]
+    },
+    {
+      "id": "demo-009",
+      "title": "Realistic Scary Figure",
+      "image": "/figures/realistic_scary_figure.png",
+      "prompt_original": "TODO: Add original prompt.",
+      "prompt_final": "TODO: Add final prompt used for generation.",
+      "stage": "Stage 5",
+      "cfg": 4.0,
+      "steps": 24,
+      "alpha": 1.75,
+      "seed": 77777,
+      "notes": "TODO: Explain what this sample demonstrates.",
+      "tags": ["photorealistic", "horror"]
+    }
+  ],
+  "todo": [
+    "Replace placeholder prompts and notes for each sample.",
+    "Adjust stage/settings metadata to match your real runs."
+  ]
+}

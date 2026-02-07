@@ -31,41 +31,35 @@
     },
     {
       "name": "Geometry-Aware-MicroUS-INR",
-      "stack": ["Python"],
+      "stack": ["PyTorch", "INRs"],
       "detail": "Geometry-aware implicit neural reconstruction for oblique micro-ultrasound: replaced linear interpolation with a learned model (+9% SSIM over baselines), reconstructed coherent 3D volumes from oblique slices, and introduced a HAT-encoder-based INR design for inter-slice modeling.",
       "link": "https://github.com/mirthAI/GeometryAware-MicroUS-INR"
     },
     {
-      "name": "PixArt Stage-1 POC (JAX Stack)",
+      "name": "PixArt/SD3 from Scratch POC (JAX Stack)",
       "stack": ["Flax", "Optax", "Equinox", "Grain"],
       "detail": "Proof-of-concept implementation for stage 1 to demonstrate JAX ecosystem proficiency.",
       "link": "https://github.com/hachoj/PixelArt-Alpha-Equinox-Grain"
-    },
-    {
-      "name": "Triton",
-      "stack": ["Python", "Triton"],
-      "detail": "TODO: Add factual project details from repo/readme (scope and your contribution).",
-      "link": "https://github.com/hachoj/Triton"
     }
   ],
-  "projectAssetsTodo": "TODO: Add 1-2 featured screenshots/GIFs per project (optional).",
+  "projectAssetsTodo": "",
   "publications": [
     {
       "title": "Geometry-Aware Implicit Neural Reconstruction of Oblique Micro-Ultrasound Scans",
       "venue": "In review at MIDL",
       "year": 2026,
-      "pdf": "TODO",
+      "pdf": "",
       "code": "https://github.com/mirthAI/GeometryAware-MicroUS-INR"
     },
     {
       "title": "AortaGPT: An Interactive Vision-Language System for Aortic CT Analysis",
       "venue": "In review at CVPR",
       "year": 2026,
-      "pdf": "TODO",
+      "pdf": "",
       "code": ""
     }
   ],
-  "publicationTodo": "TODO: add PDF / code links.",
+  "publicationTodo": "",
   "timeline": [
     {
       "organizationKey": "uf_health",
@@ -76,8 +70,7 @@
       "location": "Gainesville, FL",
       "details": [
         "Trained diffusion and flow-matching generative models for high-fidelity medical image synthesis.",
-        "Developed implicit neural representations (INRs) for resolution-independent volumetric analysis.",
-        "Implemented GRPO pipelines to align model reasoning with expert clinical reports."
+        "Developed implicit neural representations (INRs) for resolution-independent volumetric analysis."
       ]
     },
     {
@@ -88,8 +81,8 @@
       "period": "2025 - Present",
       "location": "Gainesville, FL",
       "details": [
-        "Built feature extraction pipelines across medical imaging modalities including ultrasound.",
-        "Trained semantic embeddings from clinical reports using LLMs for image-text alignment."
+        "Built self supervised abstract feature extraction pipelines across medical imaging modalities including ultrasound",
+        "Trained semantic embeddings from clinical reports using encoder-decoder architectures."
       ]
     },
     {
@@ -110,8 +103,6 @@
     "email": "chojnowski.h@ufl.edu",
     "github": "https://github.com/hachoj",
     "linkedin": "https://www.linkedin.com/in/harrison-chojnowski/",
-    "todo": [
-      "Add Google Scholar and/or X."
-    ]
+    "todo": []
   }
 }

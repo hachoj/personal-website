@@ -1,153 +1,64 @@
 ---
-import content from '../content.json';
-import '../styles/site.css';
-import { execSync } from 'node:child_process';
-import Timeline from '../components/Timeline.astro';
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Socials from "@/components/Socials.astro";
+import Card from "@/components/Card.astro";
+import getSortedPosts from "@/utils/getSortedPosts";
+import { SOCIALS } from "@/constants";
 
-function isExternalLink(value) {
-  return typeof value === 'string' && /^https?:\/\//.test(value);
-}
+const posts = await getCollection("blog");
 
-let lastUpdated = 'unknown';
-try {
-  lastUpdated = execSync('git log -1 --date=short --format=%cd').toString().trim();
-} catch (error) {
-  lastUpdated = 'unknown';
-}
+const sortedPosts = getSortedPosts(posts);
+
+const estimateReadingMinutes = (body: string) => {
+  const words = body.trim().split(/\s+/).length;
+  return Math.max(1, Math.ceil(words / 220));
+};
 ---
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <title>Harrison Chojnowski</title>
-  </head>
-  <body class="site-body">
-    <main id="home" class="page-shell">
-      <header class="section-band rule-top rule-bottom">
-        <div class="container">
-          <nav class="top-nav" aria-label="Primary">
-            <a href="#home">Home</a>
-            <span> | </span>
-            <a href="/recart_demo">recart_demo</a>
-            <span> | </span>
-            <a href="/resume_temp.pdf" target="_blank" rel="noreferrer">Resume</a>
-          </nav>
-          <p class="kicker">Machine Learning Research</p>
-          <h1 class="display-title">{content.name}</h1>
-          <p class="subtitle">Research portfolio in self-supervised learning, reinforcement learning, and medical imaging representation learning.</p>
-          <div class="meta-row">
-            <span class="meta-item">last updated {lastUpdated}</span>
+<Layout>
+  <Header />
+  <main id="main-content" data-layout="index" class="app-layout">
+    <section id="hero" class="pt-8 pb-2">
+      <h1 class="mb-3 text-[2.45rem] font-semibold tracking-tight">Hello</h1>
+      <img
+        src="/figures/ink.png"
+        alt="Misty Ink Mountain Forest"
+        class="h-auto w-full rounded-md border border-border object-contain"
+        loading="eager"
+      />
+      <p class="mt-2 text-[1rem] leading-8 text-foreground/75">
+        Welcome to my research blog. I'm interested in basic questions about neural network training.
+      </p>
+      {
+        // only display if at least one social link is enabled
+        SOCIALS.length > 0 && (
+          <div class="mt-2 flex items-center">
+            <Socials />
           </div>
-        </div>
-      </header>
+        )
+      }
+    </section>
 
-      <section class="section-band rule-bottom">
-        <div class="container narrow">
-          <h2 class="section-title">Profile</h2>
-          <div class="profile-layout">
-            <img class="profile-photo" src="/profile_picture.png" alt={content.profile.name} loading="lazy" />
-            <div class="profile-meta-stack">
-              <div class="meta-row">
-                <span class="meta-item">{content.profile.location}</span>
-                <span class="meta-item">{content.profile.phone}</span>
-                <span class="meta-item">{content.profile.email}</span>
-              </div>
-              <div class="tag-list">
-                <a class="pill-tag" href={content.profile.github} target="_blank" rel="noreferrer">github</a>
-                {content.profile.linkedin && (
-                  <a class="pill-tag" href={content.profile.linkedin} target="_blank" rel="noreferrer">linkedin</a>
-                )}
-                <a class="pill-tag" href="/resume_temp.pdf" target="_blank" rel="noreferrer">resume</a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+    <section id="recent-posts" class="pt-8 pb-8">
+      <ul>
+        {sortedPosts.map(data => (
+          <Card variant="h3" readingTime={estimateReadingMinutes(data.body)} {...data} />
+        ))}
+      </ul>
+    </section>
+  </main>
+  <Footer />
+</Layout>
 
-      <section class="section-band rule-bottom">
-        <div class="container narrow">
-          <h2 class="section-title">Research Interests</h2>
-          <ul class="plain-list">
-            {content.researchInterests.items.map((item) => <li>{item}</li>)}
-          </ul>
-          {content.researchInterests.note && <p class="subtitle">{content.researchInterests.note}</p>}
-        </div>
-      </section>
-
-      <Timeline entries={content.timeline} />
-
-      <section class="section-band section-dense rule-bottom">
-        <div class="container narrow">
-          <h2 class="section-title">Publications</h2>
-          <div class="publications-list">
-            {content.publications.map((publication) => (
-            <article class="result-detail-band rule-top">
-              <h3 class="result-title">{publication.title}</h3>
-              <div class="meta-row">
-                <span class="meta-item">{publication.venue}</span>
-                <span class="meta-item">{publication.year}</span>
-              </div>
-              <div class="tag-list">
-                {isExternalLink(publication.pdf) ? (
-                  <a class="pill-tag" href={publication.pdf} target="_blank" rel="noreferrer">pdf</a>
-                ) : (
-                  <span class="pill-tag">pdf: {publication.pdf || 'n/a'}</span>
-                )}
-                {isExternalLink(publication.code) ? (
-                  <a class="pill-tag" href={publication.code} target="_blank" rel="noreferrer">code</a>
-                ) : (
-                  <span class="pill-tag">code: {publication.code || 'n/a'}</span>
-                )}
-              </div>
-            </article>
-            ))}
-          </div>
-          <p class="subtitle">{content.publicationTodo}</p>
-        </div>
-      </section>
-
-      <section class="section-band section-dense rule-bottom">
-        <div class="container narrow">
-          <h2 class="section-title">Projects</h2>
-          <div class="projects-list">
-            {content.projects.map((project) => (
-            <article class="result-detail-band rule-top">
-              <h3 class="result-title">{project.name}</h3>
-              <div class="meta-row">
-                {project.stack.map((item) => <span class="meta-item">{item}</span>)}
-              </div>
-              <p class="result-notes">{project.detail}</p>
-              <p class="kicker">
-                <a href={project.link} target="_blank" rel="noreferrer">Repository</a>
-              </p>
-            </article>
-            ))}
-          </div>
-          <p class="subtitle">{content.projectAssetsTodo}</p>
-        </div>
-      </section>
-
-      <section class="section-band rule-bottom">
-        <div class="container narrow">
-          <h2 class="section-title">Contact</h2>
-          <ul class="plain-list">
-            <li>
-              Email: <a href={`mailto:${content.contact.email}`}>{content.contact.email}</a>
-            </li>
-            <li>
-              GitHub: <a href={content.contact.github} target="_blank" rel="noreferrer">{content.contact.github}</a>
-            </li>
-            {content.contact.linkedin && (
-              <li>
-                LinkedIn: <a href={content.contact.linkedin} target="_blank" rel="noreferrer">{content.contact.linkedin}</a>
-              </li>
-            )}
-            {content.contact.todo.map((item) => <li>TODO: {item}</li>)}
-          </ul>
-        </div>
-      </section>
-    </main>
-  </body>
-</html>
+<script>
+  document.addEventListener("astro:page-load", () => {
+    const indexLayout = (document.querySelector("#main-content") as HTMLElement)
+      ?.dataset?.layout;
+    if (indexLayout) {
+      sessionStorage.setItem("backUrl", "/");
+    }
+  });
+</script>

@@ -1,0 +1,39 @@
+---
+import type { CollectionEntry } from "astro:content";
+import dayjs from "dayjs";
+import { slugifyStr } from "@/utils/slugify";
+import { getPath } from "@/utils/getPath";
+
+type Props = {
+  variant?: "h2" | "h3";
+  readingTime?: number;
+} & CollectionEntry<"blog">;
+
+const { variant: Heading = "h2", id, data, filePath, readingTime } = Astro.props;
+
+const { title, description, pubDatetime } = data;
+const dateText = dayjs(pubDatetime).format("MMMM D, YYYY");
+---
+
+<li class="my-7">
+  <a
+    href={getPath(id, filePath)}
+    class:list={[
+      "block rounded-lg border border-border bg-white px-6 py-6 dark:border-[#363a45] dark:bg-[#2a2c35]",
+      "transition-shadow hover:shadow-[0_4px_14px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_20px_rgba(0,0,0,0.28)]",
+      "focus-visible:no-underline",
+    ]}
+  >
+    <Heading
+      class="text-[1.48rem] leading-[1.2] font-bold tracking-[-0.01em] text-foreground dark:text-[#e8eaf0]"
+      style={{ viewTransitionName: slugifyStr(title.replaceAll(".", "-")) }}
+    >
+      {title}
+    </Heading>
+    <p class="mt-3 text-[0.96rem] leading-[1.55] text-foreground/72 dark:text-[#b9bfcc]">{description}</p>
+    <p class="mt-3 text-[0.9rem] text-foreground/70 dark:text-[#9ea6b5]">
+      {dateText}
+      {readingTime && ` · ${readingTime} min`}
+    </p>
+  </a>
+</li>

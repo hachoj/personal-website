@@ -1,0 +1,85 @@
+---
+import IconMoon from "@/assets/icons/IconMoon.svg";
+import IconSunHigh from "@/assets/icons/IconSunHigh.svg";
+import { SITE } from "@/config";
+
+const { pathname } = Astro.url;
+
+// Remove trailing slash from current pathname if exists
+const currentPath =
+  pathname.endsWith("/") && pathname !== "/" ? pathname.slice(0, -1) : pathname;
+
+const isActive = (path: string) => {
+  const currentPathArray = currentPath.split("/").filter(p => p.trim());
+  const pathArray = path.split("/").filter(p => p.trim());
+
+  return currentPath === path || currentPathArray[0] === pathArray[0];
+};
+---
+
+<a
+  id="skip-to-content"
+  href="#main-content"
+  class="absolute start-16 -top-full z-50 bg-background px-3 py-2 text-accent backdrop-blur-lg transition-all focus:top-4"
+>
+  Skip to content
+</a>
+
+<header
+  class="mx-auto flex w-full max-w-[58rem] flex-col items-center justify-between px-4 sm:flex-row"
+>
+  <div
+    id="top-nav-wrap"
+    class:list={[
+      "py-4",
+      "relative w-full bg-background",
+      "flex items-center justify-between",
+    ]}
+  >
+    <div class="inline-flex items-center gap-2">
+      <a
+        href="/"
+        class="py-1 text-[1.42rem] leading-none font-semibold whitespace-nowrap"
+      >
+        {SITE.title}
+      </a>
+      {
+        SITE.lightAndDarkMode && (
+          <button
+            id="theme-btn"
+            class="focus-outline relative size-8 p-1.5 opacity-80 hover:opacity-100"
+            title="Toggles light & dark"
+            aria-label="auto"
+            aria-live="polite"
+            type="button"
+          >
+            <IconMoon class="absolute top-[50%] left-[50%] -translate-[50%] scale-100 rotate-0 transition-all dark:scale-0 dark:-rotate-90" />
+            <IconSunHigh class="absolute top-[50%] left-[50%] -translate-[50%] scale-0 rotate-90 transition-all dark:scale-100 dark:rotate-0" />
+          </button>
+        )
+      }
+    </div>
+    <nav
+      id="nav-menu"
+      class="flex items-center"
+    >
+      <ul
+        id="menu-items"
+        class:list={[
+          "flex items-center gap-3",
+          "[&>li>a]:block [&>li>a]:text-[0.98rem] [&>li>a]:font-medium [&>li>a]:text-foreground/85 [&>li>a]:hover:text-foreground",
+        ]}
+      >
+        <li>
+          <a href="/about" class:list={{ "active-nav": isActive("/about") }}>
+            About
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+
+<script>
+  // No-op: menu logic removed for minimalist static top nav.
+</script>

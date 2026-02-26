@@ -93,10 +93,13 @@ $$
 
 Interpreting the results, the largest change came from moving from AdamW to Muon for the 2D weight matrices[^1].
 Surprisingly, challenging a lot of history in machine learning, removing the bias has very little effect vs the Muon baseline.
-Initially, my theory for why removing biases did not affect model performance was because of LayerNorm, having a shift parameter.
-To test this, I ran RMSNorm + SwiGLU with and without biases. As you can see, it had once again, almost no effect.
-At this point, I'm quite confused about these results personally. My new theory is with how deep these models are along
-with activation functions, there is simply no need for explicit shifts in linear layers.
+
+This idea has been studied, models like LLaMa have actually done this for efficiency gains, noting that the shift parameter
+of the LayerNorm function essentially can absorb the job of the biases, and my results validate this claim for MAE ViT training.
+However, the next result is what really surprised me. I wanted to see if this claim was really accurate, 
+so I ran RMSNorm + SwiGLU with and without biases. As you can see, it had once again, almost no effect.
+This result is not what I expected and there is no definite answer for this effect in the literature.
+My theory is with how deep these models are along with activation functions, there is simply no need for explicit shifts in linear layers.
 
 Another note, which to some isn't surprising, is replacing GELU with a SwiGLU style FFN with equivalent parameters (scale the hidden dim by $2/3$) further improved performance of the model.
 
@@ -114,29 +117,44 @@ Muon initializes its momentum with $M_t = 0, t = 0$, so early on the momentum is
 
 ### Attentive Probe
 
-A grid sweep with parameters weight decays (5e-4, 1e-3, 5e-2) peak learning rates (1e-5, 2e-5, 5e-5, 1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 5e-3, 1e-2)
-using 1 epoch of linear warmup with cosine annealing for another 9 epochs. I chose the best model for this, being
-the SwiGLU + LayerNorm model with biases trained with the Muon optimizer. 
+For those who are unfamiliar, an attentive probe is a good way to truly get a feel for how well a pretrained model
+learned features, without heavy fine-tuning. A standard linear probe is simply one matrix multiplication that transforms
+the model's learned outputs into an ImageNet-1k class guess. The reason an attentive probe was used here, is because
+MAE based architectures, don't normally have a `[CLS]` token, which is normally what you feed into a linear probe.
+Attentive probes have a MHSA layer than takes a randomly initialized query token, and attends to it with all of the
+ViT patch tokens. Then that query token is fed through the linear layer to produce the output, still no activation functions
+are used, making it truly a linear model on top of the learned features of the MAE.
+
+I ran a grid sweep over learning rates and weight decays with cosine annealing over 10 epochs with a 1 epoch linear warmup.
+I used best pretrained model, being the SwiGLU + LayerNorm model with biases trained with the Muon optimizer. 
+
+Weight decays: `5e-4, 1e-3, 5e-2` 
+
+Peak learning rates: `1e-5, 2e-5, 5e-5, 1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 5e-3, 1e-2`
 
 $$
 \begin{array}{lc}
 \hline
 \textbf{Optimizer} & \textbf{ImageNet-1k Top-1} \\
 \hline
-\text{AdamW} & 0.560 \\
+\text{AdamW} & 0.554 \\
 \text{Muon} & \mathbf{0.567} \\
 \hline
 \end{array}
 $$
 
-Once again, Muon outperforms AdamW, even over a shorting training.
-
-[^1]: Muon relies on orthogonalization via Newton-Schulz iterations, which cannot be performed on 1D vectors. As a result, it is only applied to 2D weight matrices, while embeddings, biases, and other 1D parameters are updated with AdamW.
+Once again, the Muon optimizer was able to outperform AdamW. Because this run was a lot shorter and with far fewer parameters
+(since the MAE remains frozen), it shows that even very small models on short training runs, still benefit from using
+the Muon optimizer. This lends further to the general applicability of the optimizer.
 
 ### Summary
 
-From this simple testing, it becomes quite clear that modern transformer optimizations are generally applicable to ViT architectures as well.
-Muon showed no evident standout downsides, while SwiGLU did produce a few loss spikes, though the overall trajectory of the losses seemed unchanged.
-Future testing on downstream tasks is worth looking into, including linear probing, k-NN classification, and fine-tuning for classification.
+My experiments tell a clear story: (mm)LLM transformer innovations are not limited to language modeling. All the performance
+or efficiency swaps mirror their perceived benefits in ViT. SwiGLU increased model performance without changing the
+parameter count. Muon provided an easy way to get better performance with no real downsides. RMSNorm proved it can perform just about as
+well as LayerNorm without the overhead. Lastly, the role of biases in deep neural networks might need to be re-examined, even when
+removing the normalization-based justification entirely, as with RMSNorm, they remain inconsequential. This feels like a genuinely open area worth further study.
+
+[^1]: Muon relies on orthogonalization via Newton-Schulz iterations, which cannot be performed on 1D vectors. As a result, it is only applied to 2D weight matrices, while embeddings, biases, and other 1D parameters are updated with AdamW.
 
 Repository: [https://github.com/hachoj/iSSL](https://github.com/hachoj/iSSL)

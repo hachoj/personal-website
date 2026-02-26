@@ -73,6 +73,7 @@ $$
 
 ## Results
 
+### Pretraining
 ![Val losses](public/figures/val_loss.png)
 
 $$
@@ -81,8 +82,10 @@ $$
 \textbf{Model} & \textbf{Best Val Loss} \\
 \hline
 \text{AdamW, bias, GELU} & 0.34891 \\
-\text{Muon, bias, GELU} & 0.34571 \\
 \text{Muon, no bias, GELU} & 0.34579 \\
+\text{Muon, bias, GELU} & 0.34571 \\
+\text{Muon, no bias, SwiGLU + RMSNorm} & 0.34497 \\
+\text{Muon, bias, SwiGLU + RMSNorm} & 0.34494 \\
 \text{Muon, bias, SwiGLU} & \mathbf{0.34484} \\
 \hline
 \end{array}
@@ -90,22 +93,43 @@ $$
 
 Interpreting the results, the largest change came from moving from AdamW to Muon for the 2D weight matrices[^1].
 Surprisingly, challenging a lot of history in machine learning, removing the bias has very little effect vs the Muon baseline.
-My theory for why removing biases from all layers didn't hurt performance is because of the learned shift in LayerNorm. TODO: elaborate when RMSNorm experiments are done.
+Initially, my theory for why removing biases did not affect model performance was because of LayerNorm, having a shift parameter.
+To test this, I ran RMSNorm + SwiGLU with and without biases. As you can see, it had once again, almost no effect.
+At this point, I'm quite confused about these results personally. My new theory is with how deep these models are along
+with activation functions, there is simply no need for explicit shifts in linear layers.
 
 Another note, which to some isn't surprising, is replacing GELU with a SwiGLU style FFN with equivalent parameters (scale the hidden dim by $2/3$) further improved performance of the model.
 
-![Train Losses](public/figures/train_loss_early.png)
+![Train Losses](public/figures/train_loss.png)
 
-Looking at the train losses where I logged more data, you can see that AdamW actually did start off better, but that effect only lasted for a few epochs, after which, AdamW never was better than Muon.
-
-My theory on this is that Muon has no bias correction like AdamW with its
+Notably, AdamW  initially had faster convergence than Muon though was quicky overtaken and Muon never looked back.
+My theory on this is that Muon has no bias correction like AdamW:
 $$
 \begin{align*}
 \hat{m}_t &\leftarrow m_t/(1-B_1^t) \\
-\hat{v}_t &\leftarrow v_t/(1-B_2^t)
+\hat{v}_t &\leftarrow v_t/(1-B_2^t).
 \end{align*}
 $$
 Muon initializes its momentum with $M_t = 0, t = 0$, so early on the momentum is weighted towards a zero matrix. 
+
+### Attentive Probe
+
+A grid sweep with parameters weight decays (5e-4, 1e-3, 5e-2) peak learning rates (1e-5, 2e-5, 5e-5, 1e-4, 2e-4, 5e-4, 1e-3, 2e-3, 5e-3, 1e-2)
+using 1 epoch of linear warmup with cosine annealing for another 9 epochs. I chose the best model for this, being
+the SwiGLU + LayerNorm model with biases trained with the Muon optimizer. 
+
+$$
+\begin{array}{lc}
+\hline
+\textbf{Optimizer} & \textbf{ImageNet-1k Top-1} \\
+\hline
+\text{AdamW} & 0.560 \\
+\text{Muon} & \mathbf{0.567} \\
+\hline
+\end{array}
+$$
+
+Once again, Muon outperforms AdamW, even over a shorting training.
 
 [^1]: Muon relies on orthogonalization via Newton-Schulz iterations, which cannot be performed on 1D vectors. As a result, it is only applied to 2D weight matrices, while embeddings, biases, and other 1D parameters are updated with AdamW.
 

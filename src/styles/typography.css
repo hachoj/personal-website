@@ -97,8 +97,15 @@
   }
 
   /* ===== KaTeX text color ===== */
-  .prose .katex-display {
+  .app-prose .katex-display,
+  .app-prose .katex {
     @apply text-foreground;
+  }
+
+  /* Ensure KaTeX table elements (array/matrix envs) inherit foreground color in dark mode */
+  .app-prose .katex-html,
+  .app-prose .katex-html * {
+    color: inherit;
   }
 
   /* ===== Code Blocks & Syntax Highlighting ===== */

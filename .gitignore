@@ -24,3 +24,8 @@ pnpm-debug.log*
 # editor/system files
 .DS_Store
 .idea/
+.vscode/
+*.suo
+*.sln
+*.sw?
+

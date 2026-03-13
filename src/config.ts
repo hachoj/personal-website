@@ -3,7 +3,7 @@ export const SITE = {
   author: "Harrison Chojnowski",
   profile: "https://github.com/hachoj",
   desc: "Research notes on machine learning and representation learning.",
-  title: "Harrison Chojnowski blog",
+  title: "Sigma Labs",
   ogImage: "astropaper-og.jpg",
   lightAndDarkMode: true,
   postPerIndex: 4,

@@ -1,5 +1,5 @@
 ---
-import { render, type CollectionEntry } from "astro:content";
+import { render, type CollectionEntry, getEntry } from "astro:content";
 import Layout from "@/layouts/Layout.astro";
 import Header from "@/components/Header.astro";
 import Footer from "@/components/Footer.astro";
@@ -56,9 +56,19 @@ const ogImage = ogImageUrl
   ? new URL(ogImageUrl, Astro.url.origin).href
   : undefined;
 
+let authorName = "Unknown";
+let authorId = "";
+if (typeof author === 'object' && author.id) {
+  const authorEntry = await getEntry("authors", author.id);
+  authorName = authorEntry?.data?.name || author.id;
+  authorId = author.id;
+} else {
+  authorName = String(author);
+}
+
 const layoutProps = {
   title: `${title} | ${SITE.title}`,
-  author,
+  author: authorName,
   description,
   pubDatetime,
   modDatetime,
@@ -99,7 +109,15 @@ const nextPost =
     >
       {title}
     </h1>
-    <div class="my-2 flex items-center gap-2">
+    <div class="my-2 flex flex-wrap items-center gap-2">
+      {authorId ? (
+        <a href={`/about#author-${authorId}`} class="hover:underline opacity-80 text-sm sm:text-base">
+          {authorName}
+        </a>
+      ) : (
+        <span class="opacity-80 text-sm sm:text-base">{authorName}</span>
+      )}
+      <span aria-hidden="true" class="opacity-80 text-sm sm:text-base">&bull;</span>
       <Datetime {pubDatetime} {modDatetime} {timezone} size="lg" />
       <span
         aria-hidden="true"

@@ -1,0 +1,98 @@
+---
+import type { CollectionEntry } from "astro:content";
+
+export interface Props {
+  author: CollectionEntry<"authors">;
+}
+
+const { author } = Astro.props;
+const { name, location, phone, email, github, linkedin, avatar } = author.data;
+---
+
+<article 
+  id={`author-${author.id}`}
+  class="author-card my-7 cursor-pointer overflow-hidden block rounded-lg border border-border bg-white px-6 py-6 dark:border-[#363a45] dark:bg-[#2a2c35] transition-all duration-300 hover:shadow-[0_4px_14px_rgba(0,0,0,0.06)] dark:hover:shadow-[0_8px_20px_rgba(0,0,0,0.28)]"
+>
+  <div class="about-profile flex flex-col sm:flex-row gap-4 sm:gap-8 items-start relative pr-8">
+    {avatar && (
+      <img src={avatar} alt={name} class="w-[234px] h-[234px] object-cover rounded-lg border border-border flex-shrink-0" />
+    )}
+    <div class="flex-1 mt-2 sm:mt-0">
+      <h2 class="text-[1.48rem] leading-[1.2] font-bold tracking-[-0.01em] text-foreground dark:text-[#e8eaf0] mb-3">{name}</h2>
+      <div class="text-[0.96rem] leading-[1.55] text-foreground/72 dark:text-[#b9bfcc] space-y-1.5">
+        {location && <p><strong>Location:</strong> {location}</p>}
+        {phone && <p><strong>Phone:</strong> {phone}</p>}
+        {email && <p><strong>Email:</strong> <a href={`mailto:${email}`} class="hover:underline author-link">{email}</a></p>}
+        {github && <p><strong>GitHub:</strong> <a href={github} target="_blank" rel="noopener noreferrer" class="hover:underline author-link">{github}</a></p>}
+        {linkedin && <p><strong>LinkedIn:</strong> <a href={linkedin} target="_blank" rel="noopener noreferrer" class="hover:underline author-link">{linkedin}</a></p>}
+      </div>
+    </div>
+    <div class="expand-indicator text-foreground/50 transition-transform duration-300 absolute top-0 right-0 sm:static sm:self-center">
+      <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"></polyline></svg>
+    </div>
+  </div>
+
+  <div class="author-bio-container grid transition-[grid-template-rows] duration-300 ease-in-out" style="grid-template-rows: 0fr;">
+    <div class="overflow-hidden min-h-0">
+      <div class="app-prose max-w-none pt-6 mt-6 border-t border-border">
+        <slot />
+      </div>
+    </div>
+  </div>
+</article>
+
+<style>
+  /* Base styles handled by Tailwind via class:list, but we can do extra here if needed */
+  .author-card.expanded .expand-indicator {
+    transform: rotate(180deg);
+  }
+  .author-card.expanded .author-bio-container {
+    grid-template-rows: 1fr !important;
+  }
+</style>
+
+<script>
+  function setupAuthorCards() {
+    const cards = document.querySelectorAll('.author-card');
+    
+    cards.forEach(card => {
+      // Avoid attaching multiple event listeners on re-runs (if using view transitions)
+      if (card.hasAttribute('data-initialized')) return;
+      card.setAttribute('data-initialized', 'true');
+
+      card.addEventListener('click', (e) => {
+        // Prevent expanding/collapsing when clicking links
+        if ((e.target as HTMLElement).closest('a')) {
+          return;
+        }
+
+        card.classList.toggle('expanded');
+        // Update URL hash without jumping
+        const id = card.id;
+        if (card.classList.contains('expanded')) {
+          history.replaceState(null, '', `#${id}`);
+        } else {
+          history.replaceState(null, '', window.location.pathname + window.location.search);
+        }
+      });
+    });
+
+    // Auto-expand and scroll to card if hash matches
+    const hash = window.location.hash;
+    if (hash && hash.startsWith('#author-')) {
+      const targetCard = document.querySelector(hash);
+      if (targetCard) {
+        targetCard.classList.add('expanded');
+        setTimeout(() => {
+          targetCard.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+      }
+    }
+  }
+
+  // Handle standard load and Astro View Transitions
+  document.addEventListener('astro:page-load', setupAuthorCards);
+  if (!document.querySelector('meta[name="astro-view-transitions-enabled"]')) {
+    setupAuthorCards();
+  }
+</script>

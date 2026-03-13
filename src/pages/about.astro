@@ -1,0 +1,41 @@
+---
+import { getCollection } from "astro:content";
+import Layout from "@/layouts/Layout.astro";
+import Header from "@/components/Header.astro";
+import Footer from "@/components/Footer.astro";
+import Breadcrumb from "@/components/Breadcrumb.astro";
+import AuthorCard from "@/components/AuthorCard.astro";
+import { SITE } from "@/config";
+import { render } from "astro:content";
+
+const authors = await getCollection("authors");
+
+// Render the HTML content for each author
+const authorRenders = await Promise.all(
+  authors.map(async (author) => {
+    const { Content } = await render(author);
+    return { author, Content };
+  })
+);
+---
+
+<Layout title={`About | ${SITE.title}`}>
+  <Header />
+  <Breadcrumb />
+  <main id="main-content" class="app-layout">
+    <section id="about" class="app-prose mb-28 max-w-app prose-img:border-0">
+      <h1 class="text-2xl tracking-wider sm:text-3xl">About the Authors</h1>
+      
+      <div class="mt-8">
+        {
+          authorRenders.map(({ author, Content }) => (
+            <AuthorCard author={author}>
+              <Content />
+            </AuthorCard>
+          ))
+        }
+      </div>
+    </section>
+  </main>
+  <Footer />
+</Layout>

@@ -1,6 +1,7 @@
 ---
 title: "Rec-Flow Results: Stage 5 Highlights"
 description: Selected Stage 5 rec-flow generations with shared settings and short observations across style categories.
+author: harrison
 pubDatetime: 2026-02-14T12:00:00Z
 draft: false
 featured: true

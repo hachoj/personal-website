@@ -1,6 +1,7 @@
 ---
 title: "Evaluating Modern LLM Optimizations on ViT"
 description: This blog recounts my testing on the impact of modern LLM optimizations on ViT-based models, such as SwiGLU, removing bias, and the Muon optimizer.
+author: harrison
 pubDatetime: 2026-02-19
 draft: false
 featured: false

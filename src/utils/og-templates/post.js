@@ -93,7 +93,15 @@ import loadGoogleFonts from "../loadGoogleFont";
 //       </div>
 //     </div>`;
 
+import { getEntry } from "astro:content";
+
 export default async post => {
+  let authorName = post.data.author?.id || post.data.author;
+  if (post.data.author?.id) {
+    const authorEntry = await getEntry("authors", post.data.author.id);
+    if (authorEntry) authorName = authorEntry.data.name;
+  }
+  
   return satori(
     {
       type: "div",
@@ -193,7 +201,7 @@ export default async post => {
                                       overflow: "hidden",
                                       fontWeight: "bold",
                                     },
-                                    children: post.data.author,
+                                    children: authorName,
                                   },
                                 },
                               ],
@@ -222,7 +230,7 @@ export default async post => {
       height: 630,
       embedFont: true,
       fonts: await loadGoogleFonts(
-        post.data.title + post.data.author + SITE.title + "by"
+        post.data.title + authorName + SITE.title + "by"
       ),
     }
   );

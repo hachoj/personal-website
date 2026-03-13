@@ -1,14 +1,28 @@
-import { defineCollection, z } from "astro:content";
+import { defineCollection, z, reference } from "astro:content";
 import { glob } from "astro/loaders";
-import { SITE } from "@/config";
 
 export const BLOG_PATH = "src/data/blog";
+export const AUTHORS_PATH = "src/data/authors";
+
+const authors = defineCollection({
+  loader: glob({ pattern: "**/[^_]*.md", base: `./${AUTHORS_PATH}` }),
+  schema: () =>
+    z.object({
+      name: z.string(),
+      location: z.string().optional(),
+      phone: z.string().optional(),
+      email: z.string().optional(),
+      github: z.string().url().optional(),
+      linkedin: z.string().url().optional(),
+      avatar: z.string().optional(),
+    }),
+});
 
 const blog = defineCollection({
   loader: glob({ pattern: "**/[^_]*.md", base: `./${BLOG_PATH}` }),
   schema: ({ image }) =>
     z.object({
-      author: z.string().default(SITE.author),
+      author: reference("authors").default("harrison"),
       pubDatetime: z.date(),
       modDatetime: z.date().optional().nullable(),
       title: z.string(),
@@ -23,4 +37,4 @@ const blog = defineCollection({
     }),
 });
 
-export const collections = { blog };
+export const collections = { blog, authors };
